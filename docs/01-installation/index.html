@@ -57,6 +57,12 @@
                   </li>
                 
               
+                
+                  <li class="nav-item ">
+                    <a href="/docs/09-set-config/">Use set-config to enable developer_mode</a>
+                  </li>
+                
+              
             </ul>
           
         </li>
@@ -140,13 +146,76 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
 <span class="nb">sudo </span>apt <span class="nb">install </span>nodejs
 <span class="nb">sudo </span>apt <span class="nb">install </span>npm
-npm <span class="nb">install</span> <span class="nt">--global</span> yarn
+<span class="nb">sudo </span>npm <span class="nb">install</span> <span class="nt">--global</span> yarn
 
 </code></pre></div></div>
 
 <h2 id="step-3--enable-services">Step 3 — Enable services</h2>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl <span class="nb">enable</span> <span class="nt">--now</span> mariadb
 <span class="nb">sudo </span>systemctl <span class="nb">enable</span> <span class="nt">--now</span> redis-server
+</code></pre></div></div>
+
+<h2 id="step-3--mysql-secure-installation">Step 3 — MySql Secure installation:</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>mysql_secure_installation
+</code></pre></div></div>
+
+<p>it will ask for</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Enter current password for root (enter for none): # press enter if this not done before
+
+Switch to unix_socket authentication [Y/n] y
+
+Change the root password? [Y/n] y
+
+</code></pre></div></div>
+
+<p>Set Password for Mysql database</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>New password: 
+Re-enter new password:
+</code></pre></div></div>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Remove anonymous users? [Y/n] y
+
+Disallow root login remotely? [Y/n] y
+
+Remove test database and access to it? [Y/n] y
+
+Reload privilege tables now? [Y/n] y
+</code></pre></div></div>
+<h2 id="step-4---configure-python-virtual-env">Step 4 - Configure Python Virtual Env</h2>
+
+<p>create python env</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>python3 -m venv menv
+</code></pre></div></div>
+<p>source the menv/bin/activate</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>source menv/bin/activate
+</code></pre></div></div>
+
+<h2 id="step-5---install-frappe-bench">Step 5 - Install frappe-bench</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip install frappe-bench
+
+bench --version
+</code></pre></div></div>
+
+<h2 id="step-6---create-new-bench--goto-that-bench-folder">Step 6 - Create new bench &amp; goto that bench folder</h2>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench init mbench
+
+cd mbench
+
+</code></pre></div></div>
+
+<h2 id="step-7---create-new-site">Step 7 - Create New Site</h2>
+
+<ul>
+  <li><a href="/docs/04-new-site/">Creating a New Site</a></li>
+</ul>
+
+<h2 id="step-7---use-new-site">Step 7 - Use New Site</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench use msite.local
 </code></pre></div></div>
 
       </article>

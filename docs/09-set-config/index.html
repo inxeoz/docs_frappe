@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>docs_frappe.git</title>
+  <title>set-config in frappe</title>
   <link rel="stylesheet" href="/assets/css/sidebar.css">
   <link rel="stylesheet" href="/assets/css/content.css">
 </head>
@@ -58,7 +58,7 @@
                 
               
                 
-                  <li class="nav-item ">
+                  <li class="nav-item  active">
                     <a href="/docs/09-set-config/">Use set-config to enable developer_mode</a>
                   </li>
                 
@@ -124,27 +124,11 @@
 
     <main class="content">
       <article class="doc-article">
-        <h1></h1>
-        <style type="text/css" media="screen">
-  .container {
-    margin: 10px auto;
-    max-width: 600px;
-    text-align: center;
-  }
-  h1 {
-    margin: 30px 0;
-    font-size: 4em;
-    line-height: 1;
-    letter-spacing: -1px;
-  }
-</style>
-
-<div class="container">
-  <h1>404</h1>
-
-  <p><strong>Page not found :(</strong></p>
-  <p>The requested page could not be found.</p>
-</div>
+        <h1>set-config in frappe</h1>
+        <h2 id="enable-developer-mode">Enable developer mode</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench set-config developer_mode 1
+bench set-config server_script_enabled <span class="nb">true</span>
+</code></pre></div></div>
 
       </article>
     </main>

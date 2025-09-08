@@ -57,6 +57,12 @@
                   </li>
                 
               
+                
+                  <li class="nav-item ">
+                    <a href="/docs/09-set-config/">Use set-config to enable developer_mode</a>
+                  </li>
+                
+              
             </ul>
           
         </li>
@@ -119,26 +125,20 @@
     <main class="content">
       <article class="doc-article">
         <h1>Creating a Custom Frappe App</h1>
-        <h2 id="initialize-bench--create-bench-folder">Initialize bench &amp; create bench folder</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench init mbench
-<span class="nb">cd </span>mbench
-</code></pre></div></div>
+        <h2 id="create-new-frappe-app">Create new frappe App</h2>
 
-<h2 id="create-a-new-site">Create a new site</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site msite.local
-</code></pre></div></div>
-
-<h2 id="use-the-site">Use the site</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench use msite.local
-</code></pre></div></div>
-
-<h2 id="enable-developer-mode">Enable developer mode</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench set-config developer_mode 1
-bench set-config server_script_enabled <span class="nb">true</span>
-</code></pre></div></div>
-
-<h2 id="create-new-app">Create new app</h2>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-app mapp
+</code></pre></div></div>
+<p>it will ask bunch of details (fill as You need)</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(menv) ubuntu@ip-172-31-39-119:~/mbench$ bench new-app mapp
+App Title [Mapp]:
+App Description: inxeoz
+App Publisher: inxeoz
+App Email: inxeoz@inxeoz.com
+App License (agpl-3.0, apache-2.0, bsd-2-clause, bsd-3-clause, bsl-1.0, cc0-1.0, epl-2.0, gpl-2.0, gpl-3.0, lgpl-2.1, mit, mpl-2.0, unlicense) [mit]:
+Create GitHub Workflow action for unittests [y/N]: N
+Branch Name [develop]:
+'mapp' created at /home/ubuntu/mbench/apps/mapp
 </code></pre></div></div>
 
 <h2 id="install-app-to-site">Install app to site</h2>

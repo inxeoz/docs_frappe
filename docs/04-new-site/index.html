@@ -57,6 +57,12 @@
                   </li>
                 
               
+                
+                  <li class="nav-item ">
+                    <a href="/docs/09-set-config/">Use set-config to enable developer_mode</a>
+                  </li>
+                
+              
             </ul>
           
         </li>
@@ -119,20 +125,33 @@
     <main class="content">
       <article class="doc-article">
         <h1>Creating a New Site</h1>
-        <h2 id="create-a-new-site">Create a new site</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site msite.local
+        <h2 id="create-new-site">Create New Site</h2>
+
+<p>this will ask for 
+MariaDB root password (password which You set during sudo mysql_secure_installation )
+Administrator password to set (which will be used for frappe desktop login)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site msite.local
+
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(menv) ubuntu@ip-172-31-39-119:~/mbench$ bench new-site msite.local
+Enter mysql super user [root]:
+MySQL root password:
+
+Installing frappe...
+Updating DocTypes for frappe        : [========================================] 100%
+Set Administrator password:
+Updating Dashboard for frappe
+msite.local: SystemSettings.enable_scheduler is UNSET
+*** Scheduler is disabled ***
+(menv) ubuntu@ip-172-31-39-119:~/mbench$
 </code></pre></div></div>
 
 <h2 id="use-a-site">Use a site</h2>
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench use msite.local
 </code></pre></div></div>
 
-<h2 id="post-creation-steps">Post-creation steps</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench set-config developer_mode 1
-bench set-config server_script_enabled <span class="nb">true
-</span>bench build
-bench start
-</code></pre></div></div>
 
       </article>
     </main>
