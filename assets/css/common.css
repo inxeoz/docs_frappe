@@ -1,0 +1,71 @@
+/* common.css
+   Centralized variables, resets, accessibility helpers, and shared utilities.
+   Load this first.
+*/
+
+:root{
+  /* layout */
+  --sidebar-width: 280px;
+  --sidebar-bg: #f6f6fb;
+  --gap: 18px;
+  --content-gutter: 36px;
+  --content-max-width: 1000px;
+
+  /* colors (semantic) */
+  --accent: #6b46ff;
+  --accent-10: rgba(107,70,255,0.10);
+  --accent-04: rgba(107,70,255,0.04);
+  --accent-012: rgba(107,70,255,0.12);
+
+  --text: #003f9c;      /* page primary text (content) */
+  --text-strong: #222;  /* general UI text */
+  --muted: #6b6b80;
+  --muted-2: #4b5563;
+  --surface: #fff;
+  --callout-bg: #fbfbff;
+
+  /* radii & shadow */
+  --radius-lg: 10px;
+  --radius-sm: 6px;
+  --shadow-sm: 0 6px 18px rgba(12,15,25,0.04);
+
+  /* typography */
+  --sans: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Monaco, "Roboto Mono", monospace;
+
+  /* code block */
+  --code-bg: #344C64;
+  --code-color: #e6eef8;
+}
+
+/* Global sensible defaults + accessibility helpers */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body { height: 100%; margin: 0; font-family: var(--sans); color: var(--text-strong); -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+
+a { color: var(--accent); text-decoration: none; }
+a:focus { outline-offset: 3px; box-shadow: 0 0 0 3px var(--accent-04); border-radius: 4px; }
+
+img, picture, svg, video { max-width: 100%; display: block; }
+
+.container {
+  margin-inline: auto;
+  max-width: var(--content-max-width);
+  padding-inline: var(--content-gutter);
+}
+
+/* utility */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden;
+  clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap;
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
+}
