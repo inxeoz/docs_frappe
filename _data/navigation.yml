@@ -27,3 +27,8 @@
   items:
     - title: Nginx Reverse Proxy Setup
       url: /docs/08-nginx/
+
+- title: Extra
+  items:
+    - title: Kill Frappe process
+      url: /docs/10-kill-frappe-process/
