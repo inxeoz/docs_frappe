@@ -4,32 +4,24 @@ layout: default
 ---
 
 
-## Initialize bench & create bench folder
-```bash
-bench init mbench
-cd mbench
-```
+##  Create new frappe App
 
-## Create a new site
-```bash
-bench new-site msite.local
-```
-
-## Use the site
-```bash
-bench use msite.local
-```
-
-## Enable developer mode
-```bash
-bench set-config developer_mode 1
-bench set-config server_script_enabled true
-```
-
-## Create new app
 ```bash
 bench new-app mapp
 ```
+it will ask bunch of details (fill as You need)
+```
+(menv) ubuntu@ip-172-31-39-119:~/mbench$ bench new-app mapp
+App Title [Mapp]:
+App Description: inxeoz
+App Publisher: inxeoz
+App Email: inxeoz@inxeoz.com
+App License (agpl-3.0, apache-2.0, bsd-2-clause, bsd-3-clause, bsl-1.0, cc0-1.0, epl-2.0, gpl-2.0, gpl-3.0, lgpl-2.1, mit, mpl-2.0, unlicense) [mit]:
+Create GitHub Workflow action for unittests [y/N]: N
+Branch Name [develop]:
+'mapp' created at /home/ubuntu/mbench/apps/mapp
+```
+
 
 ## Install app to site
 ```bash
