@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>{{ page.title | default: site.title }}</title>
+  <link rel="stylesheet" href="{{ '/assets/css/sidebar.css' | relative_url }}">
+  <link rel="stylesheet" href="{{ '/assets/css/content.css' | relative_url }}">
+</head>
+<body>
+  <div class="page-wrap">
+    {% include sidebar.html %}
+    <main class="content">
+      <article class="doc-article">
+        <h1>{{ page.title }}</h1>
+        {{ content }}
+      </article>
+    </main>
+  </div>
+  <script src="{{ '/assets/js/copy-code.js' | relative_url }}"></script>
+
+  <script src="{{ '/assets/js/sidebar.js' | relative_url }}"></script>
+  <script src="{{ '/assets/js/content-toc.js' | relative_url }}"></script>
+</body>
+</html>

@@ -1,0 +1,27 @@
+# _data/navigation.yml
+- title: Getting Started
+  items:
+    - title: Installation
+      url: /docs/01-installation/
+- title: Development
+  items:
+    - title: Creating a Custom Frappe App
+      url: /docs/02-custom-app/
+    - title: Installing Apps
+      url: /docs/03-installing-apps/
+    - title: Creating a New Site
+      url: /docs/04-new-site/
+- title: Usage
+  items:
+    - title: Using Bench Console
+      url: /docs/05-bench-console/
+- title: Maintenance
+  items:
+    - title: Backing Up Data
+      url: /docs/06-backup/
+    - title: Restoring Database
+      url: /docs/07-restore/
+- title: Deployment
+  items:
+    - title: Nginx Reverse Proxy Setup
+      url: /docs/08-nginx/
