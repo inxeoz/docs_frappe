@@ -45,3 +45,12 @@ sudo systemctl reload nginx
 bench build
 bench restart
 ```
+
+
+## Verify the aws ec2 security group looks like this
+
+### inbound rule
+![Alt text](/assets/images/inbound.png)
+
+### outbound rule
+![Alt text](/assets/images/outbound.png)
