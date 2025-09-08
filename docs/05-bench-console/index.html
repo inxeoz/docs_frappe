@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Using Bench Console</title>
+  <link rel="stylesheet" href="/assets/css/sidebar.css">
+  <link rel="stylesheet" href="/assets/css/content.css">
+</head>
+<body>
+  <div class="page-wrap">
+    <!-- _includes/sidebar.html -->
+<nav id="site-sidebar" class="sidebar" aria-label="Sidebar navigation">
+  <div class="sidebar-inner">
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true" aria-controls="sidebar-list">
+      ☰
+    </button>
+
+    <ul id="sidebar-list" class="sidebar-list">
+      
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Getting Started</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/01-installation/">Installation</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Development</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/02-custom-app/">Creating a Custom Frappe App</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/03-installing-apps/">Installing Apps</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/04-new-site/">Creating a New Site</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Usage</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item  active">
+                    <a href="/docs/05-bench-console/">Using Bench Console</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Maintenance</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/06-backup/">Backing Up Data</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/07-restore/">Restoring Database</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Deployment</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/08-nginx/">Nginx Reverse Proxy Setup</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+
+    <main class="content">
+      <article class="doc-article">
+        <h1>Using Bench Console</h1>
+        <h2 id="open-console">Open console</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> mysite.localhost console
+</code></pre></div></div>
+
+<h2 id="examples">Examples</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">get_doc</span><span class="p">(</span><span class="s">"User"</span><span class="p">,</span> <span class="s">"Administrator"</span><span class="p">).</span><span class="n">full_name</span>
+
+<span class="n">user</span> <span class="o">=</span> <span class="n">frappe</span><span class="p">.</span><span class="n">get_doc</span><span class="p">(</span><span class="s">"User"</span><span class="p">,</span> <span class="s">"test@example.com"</span><span class="p">)</span>
+<span class="n">user</span><span class="p">.</span><span class="n">enabled</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">user</span><span class="p">.</span><span class="n">save</span><span class="p">()</span>
+<span class="n">frappe</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div></div>
+
+      </article>
+    </main>
+  </div>
+  <script src="/assets/js/copy-code.js"></script>
+
+  <script src="/assets/js/sidebar.js"></script>
+  <script src="/assets/js/content-toc.js"></script>
+</body>
+</html>

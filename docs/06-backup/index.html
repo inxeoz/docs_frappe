@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Backing Up Data</title>
+  <link rel="stylesheet" href="/assets/css/sidebar.css">
+  <link rel="stylesheet" href="/assets/css/content.css">
+</head>
+<body>
+  <div class="page-wrap">
+    <!-- _includes/sidebar.html -->
+<nav id="site-sidebar" class="sidebar" aria-label="Sidebar navigation">
+  <div class="sidebar-inner">
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true" aria-controls="sidebar-list">
+      ☰
+    </button>
+
+    <ul id="sidebar-list" class="sidebar-list">
+      
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Getting Started</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/01-installation/">Installation</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Development</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/02-custom-app/">Creating a Custom Frappe App</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/03-installing-apps/">Installing Apps</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/04-new-site/">Creating a New Site</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Usage</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/05-bench-console/">Using Bench Console</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Maintenance</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item  active">
+                    <a href="/docs/06-backup/">Backing Up Data</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/07-restore/">Restoring Database</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Deployment</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/08-nginx/">Nginx Reverse Proxy Setup</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+
+    <main class="content">
+      <article class="doc-article">
+        <h1>Backing Up Data</h1>
+        <h2 id="full-backup">Full backup</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> mysite.localhost backup
+</code></pre></div></div>
+
+<p>Backups stored in:</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>sites/mysite.localhost/private/backups
+</code></pre></div></div>
+
+<h2 id="database-only-backup">Database-only backup</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> mysite.localhost backup <span class="nt">--with-files</span><span class="o">=</span><span class="nb">false</span>
+</code></pre></div></div>
+
+
+      </article>
+    </main>
+  </div>
+  <script src="/assets/js/copy-code.js"></script>
+
+  <script src="/assets/js/sidebar.js"></script>
+  <script src="/assets/js/content-toc.js"></script>
+</body>
+</html>

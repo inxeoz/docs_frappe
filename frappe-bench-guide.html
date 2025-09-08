@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Frappe-Bench Complete Guide for Ubuntu</title>
+  <link rel="stylesheet" href="/assets/css/sidebar.css">
+  <link rel="stylesheet" href="/assets/css/content.css">
+</head>
+<body>
+  <div class="page-wrap">
+    <!-- _includes/sidebar.html -->
+<nav id="site-sidebar" class="sidebar" aria-label="Sidebar navigation">
+  <div class="sidebar-inner">
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true" aria-controls="sidebar-list">
+      ☰
+    </button>
+
+    <ul id="sidebar-list" class="sidebar-list">
+      
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Getting Started</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/01-installation/">Installation</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Development</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/02-custom-app/">Creating a Custom Frappe App</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/03-installing-apps/">Installing Apps</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/04-new-site/">Creating a New Site</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Usage</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/05-bench-console/">Using Bench Console</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Maintenance</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/06-backup/">Backing Up Data</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/07-restore/">Restoring Database</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Deployment</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/08-nginx/">Nginx Reverse Proxy Setup</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+
+    <main class="content">
+      <article class="doc-article">
+        <h1>Frappe-Bench Complete Guide for Ubuntu</h1>
+        <h1 id="frappe-bench-complete-guide-for-ubuntu">Frappe-Bench Complete Guide for Ubuntu</h1>
+
+<h2 id="table-of-contents">Table of Contents</h2>
+<ol>
+  <li><a href="#installation">Installation</a></li>
+  <li><a href="#creating-a-custom-frappe-app">Creating a Custom Frappe App</a></li>
+  <li><a href="#installing-apps">Installing Apps</a></li>
+  <li><a href="#creating-a-new-site">Creating a New Site</a></li>
+  <li><a href="#using-bench-console">Using Bench Console</a></li>
+  <li><a href="#backing-up-datadatabase">Backing Up Data/Database</a></li>
+  <li><a href="#restoring-database">Restoring Database</a></li>
+</ol>
+
+<h2 id="installation">Installation</h2>
+
+<h3 id="prerequisites">Prerequisites</h3>
+
+<p>First, update your Ubuntu system:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>apt upgrade <span class="nt">-y</span>
+</code></pre></div></div>
+
+<p>Install required dependencies:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c"># Install Python and development tools</span>
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> python3-dev python3-pip python3-venv
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> software-properties-common
+
+<span class="c"># Install Node.js and npm</span>
+curl <span class="nt">-fsSL</span> https://deb.nodesource.com/setup_18.x | <span class="nb">sudo</span> <span class="nt">-E</span> bash -
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> nodejs
+
+<span class="c"># Install yarn</span>
+npm <span class="nb">install</span> <span class="nt">-g</span> yarn
+
+<span class="c"># Install Git</span>
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> git
+
+<span class="c"># Install other dependencies</span>
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> build-essential libssl-dev libffi-dev
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> python3-setuptools python3-wheel
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> redis-server
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> mariadb-server mariadb-client
+</code></pre></div></div>
+
+<h3 id="install-bench">Install Bench</h3>
+
+<p>Install bench using pip:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>pip3 <span class="nb">install </span>frappe-bench
+</code></pre></div></div>
+
+<p>Add the local bin directory to PATH (add this to your ~/.bashrc or ~/.zshrc):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">export </span><span class="nv">PATH</span><span class="o">=</span><span class="nv">$PATH</span>:~/.local/bin
+</code></pre></div></div>
+
+<p>Reload your shell or run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">source</span> ~/.bashrc
+</code></pre></div></div>
+
+<h3 id="configure-mariadb">Configure MariaDB</h3>
+
+<p>Secure MariaDB installation:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>mysql_secure_installation
+</code></pre></div></div>
+
+<p>Configure MariaDB for Frappe:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>mysql <span class="nt">-u</span> root <span class="nt">-p</span>
+</code></pre></div></div>
+
+<p>In the MySQL prompt:</p>
+
+<div class="language-sql highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">CREATE</span> <span class="k">USER</span> <span class="s1">'frappe'</span><span class="o">@</span><span class="s1">'localhost'</span> <span class="n">IDENTIFIED</span> <span class="k">BY</span> <span class="s1">'your_password'</span><span class="p">;</span>
+<span class="k">GRANT</span> <span class="k">ALL</span> <span class="k">PRIVILEGES</span> <span class="k">ON</span> <span class="o">*</span><span class="p">.</span><span class="o">*</span> <span class="k">TO</span> <span class="s1">'frappe'</span><span class="o">@</span><span class="s1">'localhost'</span> <span class="k">WITH</span> <span class="k">GRANT</span> <span class="k">OPTION</span><span class="p">;</span>
+<span class="n">FLUSH</span> <span class="k">PRIVILEGES</span><span class="p">;</span>
+<span class="n">EXIT</span><span class="p">;</span>
+</code></pre></div></div>
+
+<p>Edit MariaDB configuration:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>nano /etc/mysql/mariadb.conf.d/50-server.cnf
+</code></pre></div></div>
+
+<p>Add these lines under <code class="language-plaintext highlighter-rouge">[mysqld]</code>:</p>
+
+<div class="language-ini highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="py">character-set-client-handshake</span> <span class="p">=</span> <span class="s">FALSE</span>
+<span class="py">character-set-server</span> <span class="p">=</span> <span class="s">utf8mb4</span>
+<span class="py">collation-server</span> <span class="p">=</span> <span class="s">utf8mb4_unicode_ci</span>
+</code></pre></div></div>
+
+<p>Restart MariaDB:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl restart mariadb
+</code></pre></div></div>
+
+<h3 id="initialize-bench">Initialize Bench</h3>
+
+<p>Create a new bench directory:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench init frappe-bench <span class="nt">--frappe-branch</span> version-15
+<span class="nb">cd </span>frappe-bench
+</code></pre></div></div>
+
+<h2 id="creating-a-custom-frappe-app">Creating a Custom Frappe App</h2>
+
+<h3 id="generate-app-structure">Generate App Structure</h3>
+
+<p>Create a new custom app:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-app your_app_name
+</code></pre></div></div>
+
+<p>This will prompt you for:</p>
+<ul>
+  <li>App Title</li>
+  <li>App Description</li>
+  <li>App Publisher</li>
+  <li>App Email</li>
+  <li>App License</li>
+  <li>App Icon</li>
+</ul>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-app custom_inventory
+<span class="c"># Follow the prompts with your app details</span>
+</code></pre></div></div>
+
+<h3 id="app-structure">App Structure</h3>
+
+<p>Your new app will be created in <code class="language-plaintext highlighter-rouge">apps/your_app_name/</code> with this structure:</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>your_app_name/
+├── your_app_name/
+│   ├── __init__.py
+│   ├── hooks.py
+│   ├── modules.txt
+│   └── your_app_name/
+├── setup.py
+├── requirements.txt
+└── README.md
+</code></pre></div></div>
+
+<h3 id="customize-your-app">Customize Your App</h3>
+
+<p>Edit the hooks.py file to customize your app:</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># apps/your_app_name/your_app_name/hooks.py
+</span>
+<span class="kn">from</span> <span class="nn">.</span> <span class="kn">import</span> <span class="n">__version__</span> <span class="k">as</span> <span class="n">app_version</span>
+
+<span class="n">app_name</span> <span class="o">=</span> <span class="s">"your_app_name"</span>
+<span class="n">app_title</span> <span class="o">=</span> <span class="s">"Your App Name"</span>
+<span class="n">app_publisher</span> <span class="o">=</span> <span class="s">"Your Company"</span>
+<span class="n">app_description</span> <span class="o">=</span> <span class="s">"Your app description"</span>
+<span class="n">app_icon</span> <span class="o">=</span> <span class="s">"octicon octicon-file-directory"</span>
+<span class="n">app_color</span> <span class="o">=</span> <span class="s">"grey"</span>
+<span class="n">app_email</span> <span class="o">=</span> <span class="s">"your_email@company.com"</span>
+<span class="n">app_license</span> <span class="o">=</span> <span class="s">"MIT"</span>
+
+<span class="c1"># Include js, css files in header of desk.html
+# app_include_css = "/assets/your_app_name/css/your_app_name.css"
+# app_include_js = "/assets/your_app_name/js/your_app_name.js"
+</span></code></pre></div></div>
+
+<h2 id="installing-apps">Installing Apps</h2>
+
+<h3 id="install-app-to-bench">Install App to Bench</h3>
+
+<p>First, install the app to your bench:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench get-app https://github.com/username/app_name.git
+<span class="c"># Or for local apps:</span>
+bench install-app your_app_name
+</code></pre></div></div>
+
+<h3 id="install-app-to-site">Install App to Site</h3>
+
+<p>Install the app to a specific site:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name install-app app_name
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> mysite.local install-app custom_inventory
+</code></pre></div></div>
+
+<h3 id="list-available-apps">List Available Apps</h3>
+
+<p>See all available apps in your bench:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench list-apps
+</code></pre></div></div>
+
+<h2 id="creating-a-new-site">Creating a New Site</h2>
+
+<h3 id="create-site">Create Site</h3>
+
+<p>Create a new site with database:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site site_name <span class="nt">--db-name</span> database_name
+</code></pre></div></div>
+
+<p>Example:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site mysite.local <span class="nt">--db-name</span> mysite_db
+</code></pre></div></div>
+
+<p>You’ll be prompted to set an administrator password.</p>
+
+<h3 id="set-site-as-current">Set Site as Current</h3>
+
+<p>Set the newly created site as the current site:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench use site_name
+</code></pre></div></div>
+
+<h3 id="install-erpnext-optional">Install ERPNext (Optional)</h3>
+
+<p>If you want to install ERPNext:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench get-app erpnext <span class="nt">--branch</span> version-15
+bench <span class="nt">--site</span> site_name install-app erpnext
+</code></pre></div></div>
+
+<h3 id="start-development-server">Start Development Server</h3>
+
+<p>Start the development server:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench start
+</code></pre></div></div>
+
+<p>Access your site at <code class="language-plaintext highlighter-rouge">http://site_name:8000</code></p>
+
+<h2 id="using-bench-console">Using Bench Console</h2>
+
+<h3 id="enter-console">Enter Console</h3>
+
+<p>Access the bench console for interactive Python/Frappe operations:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name console
+</code></pre></div></div>
+
+<h3 id="common-console-operations">Common Console Operations</h3>
+
+<h4 id="import-frappe">Import Frappe</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">frappe</span>
+</code></pre></div></div>
+
+<h4 id="create-a-document">Create a Document</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Create a new document
+</span><span class="n">doc</span> <span class="o">=</span> <span class="n">frappe</span><span class="p">.</span><span class="n">get_doc</span><span class="p">({</span>
+    <span class="s">"doctype"</span><span class="p">:</span> <span class="s">"User"</span><span class="p">,</span>
+    <span class="s">"email"</span><span class="p">:</span> <span class="s">"newuser@example.com"</span><span class="p">,</span>
+    <span class="s">"first_name"</span><span class="p">:</span> <span class="s">"John"</span><span class="p">,</span>
+    <span class="s">"last_name"</span><span class="p">:</span> <span class="s">"Doe"</span>
+<span class="p">})</span>
+<span class="n">doc</span><span class="p">.</span><span class="n">insert</span><span class="p">()</span>
+<span class="n">frappe</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">commit</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h4 id="query-database">Query Database</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Get a document
+</span><span class="n">user</span> <span class="o">=</span> <span class="n">frappe</span><span class="p">.</span><span class="n">get_doc</span><span class="p">(</span><span class="s">"User"</span><span class="p">,</span> <span class="s">"administrator"</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">user</span><span class="p">.</span><span class="n">full_name</span><span class="p">)</span>
+
+<span class="c1"># Get list of documents
+</span><span class="n">users</span> <span class="o">=</span> <span class="n">frappe</span><span class="p">.</span><span class="n">get_all</span><span class="p">(</span><span class="s">"User"</span><span class="p">,</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s">"name"</span><span class="p">,</span> <span class="s">"email"</span><span class="p">,</span> <span class="s">"full_name"</span><span class="p">])</span>
+<span class="k">print</span><span class="p">(</span><span class="n">users</span><span class="p">)</span>
+
+<span class="c1"># SQL query
+</span><span class="n">result</span> <span class="o">=</span> <span class="n">frappe</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">sql</span><span class="p">(</span><span class="s">"SELECT * FROM tabUser LIMIT 5"</span><span class="p">,</span> <span class="n">as_dict</span><span class="o">=</span><span class="bp">True</span><span class="p">)</span>
+<span class="k">print</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="run-methods">Run Methods</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="c1"># Run a document method
+</span><span class="n">doc</span> <span class="o">=</span> <span class="n">frappe</span><span class="p">.</span><span class="n">get_doc</span><span class="p">(</span><span class="s">"User"</span><span class="p">,</span> <span class="s">"administrator"</span><span class="p">)</span>
+<span class="n">doc</span><span class="p">.</span><span class="n">some_method</span><span class="p">()</span>
+
+<span class="c1"># Run server scripts
+</span><span class="n">frappe</span><span class="p">.</span><span class="n">utils</span><span class="p">.</span><span class="n">execute_in_shell</span><span class="p">(</span><span class="s">"ls -la"</span><span class="p">)</span>
+</code></pre></div></div>
+
+<h4 id="clear-cache">Clear Cache</h4>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">clear_cache</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h3 id="exit-console">Exit Console</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">exit</span><span class="p">()</span>
+</code></pre></div></div>
+
+<h2 id="backing-up-datadatabase">Backing Up Data/Database</h2>
+
+<h3 id="automatic-backup">Automatic Backup</h3>
+
+<p>Enable automatic backups:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name set-config backup_frequency <span class="s2">"Daily"</span>
+bench <span class="nt">--site</span> site_name set-config backup_limit 3
+</code></pre></div></div>
+
+<h3 id="manual-database-backup">Manual Database Backup</h3>
+
+<p>Create a manual backup:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name backup
+</code></pre></div></div>
+
+<p>This creates backups in <code class="language-plaintext highlighter-rouge">sites/site_name/private/backups/</code></p>
+
+<h3 id="backup-with-files">Backup with Files</h3>
+
+<p>Include uploaded files in backup:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name backup <span class="nt">--with-files</span>
+</code></pre></div></div>
+
+<h3 id="custom-backup-location">Custom Backup Location</h3>
+
+<p>Specify backup location:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name backup <span class="nt">--backup-path</span> /path/to/backup/location
+</code></pre></div></div>
+
+<h3 id="database-only-backup">Database-Only Backup</h3>
+
+<p>For database-only backup:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name backup <span class="nt">--only-database</span>
+</code></pre></div></div>
+
+<h3 id="list-backups">List Backups</h3>
+
+<p>View available backups:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">ls </span>sites/site_name/private/backups/
+</code></pre></div></div>
+
+<h2 id="restoring-database">Restoring Database</h2>
+
+<h3 id="restore-from-backup">Restore from Backup</h3>
+
+<p>Restore a site from backup:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name restore /path/to/backup.sql.gz
+</code></pre></div></div>
+
+<h3 id="restore-with-files">Restore with Files</h3>
+
+<p>If you backed up with files:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name restore /path/to/backup.sql.gz <span class="nt">--with-private-files</span> /path/to/private-files.tar <span class="nt">--with-public-files</span> /path/to/public-files.tar
+</code></pre></div></div>
+
+<h3 id="force-restore">Force Restore</h3>
+
+<p>Force restore (drops existing database):</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name <span class="nt">--force</span> restore /path/to/backup.sql.gz
+</code></pre></div></div>
+
+<h3 id="restore-to-new-site">Restore to New Site</h3>
+
+<p>Create a new site and restore:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site new_site_name <span class="nt">--source_sql</span> /path/to/backup.sql.gz
+</code></pre></div></div>
+
+<h3 id="migrate-after-restore">Migrate After Restore</h3>
+
+<p>After restoring, run migrations:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name migrate
+</code></pre></div></div>
+
+<h2 id="additional-useful-commands">Additional Useful Commands</h2>
+
+<h3 id="update-apps">Update Apps</h3>
+
+<p>Update all apps:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench update
+</code></pre></div></div>
+
+<p>Update specific app:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench update <span class="nt">--app</span> app_name
+</code></pre></div></div>
+
+<h3 id="restart-services">Restart Services</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench restart
+</code></pre></div></div>
+
+<h3 id="view-logs">View Logs</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench logs
+</code></pre></div></div>
+
+<h3 id="clear-cache-1">Clear Cache</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name clear-cache
+</code></pre></div></div>
+
+<h3 id="enabledisable-maintenance-mode">Enable/Disable Maintenance Mode</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name set-maintenance-mode on
+bench <span class="nt">--site</span> site_name set-maintenance-mode off
+</code></pre></div></div>
+
+<h3 id="drop-site">Drop Site</h3>
+
+<p><strong>Warning: This will permanently delete the site and database</strong></p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench drop-site site_name
+</code></pre></div></div>
+
+<h2 id="troubleshooting">Troubleshooting</h2>
+
+<h3 id="common-issues">Common Issues</h3>
+
+<ol>
+  <li><strong>Permission Issues</strong>: Use <code class="language-plaintext highlighter-rouge">sudo</code> for system-level operations</li>
+  <li><strong>Port Already in Use</strong>: Kill existing processes or use different ports</li>
+  <li><strong>Database Connection</strong>: Check MariaDB credentials and service status</li>
+  <li><strong>Node/NPM Issues</strong>: Ensure Node.js version compatibility</li>
+</ol>
+
+<h3 id="log-files">Log Files</h3>
+
+<p>Check these log files for debugging:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">logs/web.error.log</code></li>
+  <li><code class="language-plaintext highlighter-rouge">logs/web.log</code></li>
+  <li><code class="language-plaintext highlighter-rouge">logs/worker.error.log</code></li>
+  <li><code class="language-plaintext highlighter-rouge">logs/worker.log</code></li>
+</ul>
+
+<h3 id="reset-admin-password">Reset Admin Password</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> site_name set-admin-password
+</code></pre></div></div>
+
+<p>This comprehensive guide covers all the essential aspects of working with Frappe-Bench in Ubuntu. Remember to always backup your data before making significant changes to your site or database.</p>
+
+
+      </article>
+    </main>
+  </div>
+  <script src="/assets/js/copy-code.js"></script>
+
+  <script src="/assets/js/sidebar.js"></script>
+  <script src="/assets/js/content-toc.js"></script>
+</body>
+</html>

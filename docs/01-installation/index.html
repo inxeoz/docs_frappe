@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Installation</title>
+  <link rel="stylesheet" href="/assets/css/sidebar.css">
+  <link rel="stylesheet" href="/assets/css/content.css">
+</head>
+<body>
+  <div class="page-wrap">
+    <!-- _includes/sidebar.html -->
+<nav id="site-sidebar" class="sidebar" aria-label="Sidebar navigation">
+  <div class="sidebar-inner">
+    <button id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true" aria-controls="sidebar-list">
+      ☰
+    </button>
+
+    <ul id="sidebar-list" class="sidebar-list">
+      
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Getting Started</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item  active">
+                    <a href="/docs/01-installation/">Installation</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Development</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/02-custom-app/">Creating a Custom Frappe App</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/03-installing-apps/">Installing Apps</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/04-new-site/">Creating a New Site</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Usage</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/05-bench-console/">Using Bench Console</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Maintenance</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/06-backup/">Backing Up Data</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/07-restore/">Restoring Database</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Deployment</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/08-nginx/">Nginx Reverse Proxy Setup</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+
+    <main class="content">
+      <article class="doc-article">
+        <h1>Installation</h1>
+        <p>This page covers installing system dependencies, Node/Yarn, enabling services, configuring MariaDB, and creating a Python virtual environment.</p>
+
+<h2 id="step-1--system-update--dependencies">Step 1 — System update &amp; dependencies</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt update <span class="o">&amp;&amp;</span> <span class="nb">sudo </span>apt upgrade <span class="nt">-y</span>
+<span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> git curl wget   python-is-python3 python3-dev python3-pip python3-venv build-essential   redis-server libmariadb-dev mariadb-server mariadb-client pkg-config
+</code></pre></div></div>
+
+<h2 id="step-2--nodejs-npm-and-yarn">Step 2 — Node.js, npm and Yarn</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>apt <span class="nb">install</span> <span class="nt">-y</span> nodejs npm
+<span class="nb">sudo </span>npm <span class="nb">install</span> <span class="nt">--global</span> yarn
+</code></pre></div></div>
+
+<h2 id="step-3--enable-services">Step 3 — Enable services</h2>
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>systemctl <span class="nb">enable</span> <span class="nt">--now</span> mariadb
+<span class="nb">sudo </span>systemctl <span class="nb">enable</span> <span class="nt">--now</span> redis-server
+</code></pre></div></div>
+
+      </article>
+    </main>
+  </div>
+  <script src="/assets/js/copy-code.js"></script>
+
+  <script src="/assets/js/sidebar.js"></script>
+  <script src="/assets/js/content-toc.js"></script>
+</body>
+</html>
