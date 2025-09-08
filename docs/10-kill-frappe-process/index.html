@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Creating a Custom Frappe App</title>
+  <title>Kill Frappe Process</title>
   <link rel="stylesheet" href="/assets/css/sidebar.css">
   <link rel="stylesheet" href="/assets/css/content.css">
 </head>
@@ -40,7 +40,7 @@
             <ul class="section-items">
               
                 
-                  <li class="nav-item  active">
+                  <li class="nav-item ">
                     <a href="/docs/02-custom-app/">Creating a Custom Frappe App</a>
                   </li>
                 
@@ -124,7 +124,7 @@
             <ul class="section-items">
               
                 
-                  <li class="nav-item ">
+                  <li class="nav-item  active">
                     <a href="/docs/10-kill-frappe-process/">Kill Frappe process</a>
                   </li>
                 
@@ -139,31 +139,47 @@
 
     <main class="content">
       <article class="doc-article">
-        <h1>Creating a Custom Frappe App</h1>
-        <h2 id="create-new-frappe-app">Create new frappe App</h2>
+        <h1>Kill Frappe Process</h1>
+        <h2 id="use--kill--lsof-command-to-terminate-the-frappe-process">Use  kill &amp; lsof command to terminate the frappe process</h2>
 
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-app mapp
+<p>sometime it happenns that the frappe process is running in background and we dont have access to it</p>
+
+<p>and then if we try to run ‘bench start’
+we get this type of error (because of background running frappe process)</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+
+17:25:27 redis_cache.1 | 99370:M 08 Sep 2025 17:25:27.676 # Warning: Could not create server TCP listening socket 127.0.0.1:13000: bind: Address already in use
+17:25:27 redis_queue.1 | 99372:M 08 Sep 2025 17:25:27.676 # Warning: Could not create server TCP listening socket 127.0.0.1:11000: bind: Address already in use
+17:25:27 system        | socketio.1 stopped (rc=-15)
+17:25:27 system        | redis_queue.1 stopped (rc=1)
+17:25:27 system        | watch.1 stopped (rc=-15)
+
 </code></pre></div></div>
-<p>it will ask bunch of details (fill as You need)</p>
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(menv) ubuntu@ip-172-31-39-119:~/mbench$ bench new-app mapp
-App Title [Mapp]:
-App Description: inxeoz
-App Publisher: inxeoz
-App Email: inxeoz@inxeoz.com
-App License (agpl-3.0, apache-2.0, bsd-2-clause, bsd-3-clause, bsl-1.0, cc0-1.0, epl-2.0, gpl-2.0, gpl-3.0, lgpl-2.1, mit, mpl-2.0, unlicense) [mit]:
-Create GitHub Workflow action for unittests [y/N]: N
-Branch Name [develop]:
-'mapp' created at /home/ubuntu/mbench/apps/mapp
+<h1 id="to-fix-it-find-the-process-id-and-kill-with-sudo">To Fix it find the process id and kill with sudo</h1>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench start | <span class="nb">grep </span>port
 </code></pre></div></div>
 
-<h2 id="install-app-to-site">Install app to site</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> msite.local install-app mapp
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[inxeoz@manjaro-i3 | prob | 05:31:12 PM]$ bench start | grep port
+17:31:18 redis_cache.1 | 102389:M 08 Sep 2025 17:31:18.457 * Running mode=standalone, port=13000.
+17:31:18 redis_cache.1 | 102389:M 08 Sep 2025 17:31:18.457 # Failed listening on port 13000 (tcp), aborting.
+17:31:18 redis_queue.1 | 102391:M 08 Sep 2025 17:31:18.458 * Running mode=standalone, port=11000.
+17:31:18 redis_queue.1 | 102391:M 08 Sep 2025 17:31:18.458 # Failed listening on port 11000 (tcp), aborting.
+(cenv)
+[inxeoz@manjaro-i3 | prob | 05:31:18 PM]$
+</code></pre></div></div>
+<h1 id="find-process-id-which-using-these-port">find process id which using these port</h1>
+
+<p>for each port</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo </span>lsof <span class="nt">-t</span> <span class="nt">-i</span> :PORT_NUMBER
+</code></pre></div></div>
+<p>and then kill that PID</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">sudo kill </span>PID
 </code></pre></div></div>
 
-<h2 id="build--start">Build &amp; start</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench build
-bench start
-</code></pre></div></div>
 
       </article>
     </main>
