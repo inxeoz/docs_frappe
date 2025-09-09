@@ -7,9 +7,10 @@
   max-width: var(--content-max-width);
   margin-inline: auto;
   padding: var(--content-gutter);
-  padding-top: 24px; /* aligns with sidebar inner padding */
+  padding-top: 32px;
   color: var(--text);
   line-height: 1.7;
+  animation: slideUp var(--transition-slow) ease-out;
 }
 
 /* Simple article wrapper */
@@ -17,11 +18,12 @@
 
 /* Headings: responsive sizes with clamp(), shared styles via :is() */
 .content :is(h1,h2,h3) {
-  color: var(--text);
+  color: var(--text-strong);
   letter-spacing: -0.02em;
   font-weight: 700;
   margin: 0 0 0.45em 0;
   line-height: 1.12;
+  scroll-margin-top: 80px; /* for anchor links */
 }
 
 .content h1, .doc-article h1 {
@@ -122,15 +124,21 @@
 .content pre {
   background: var(--code-bg);
   color: var(--code-color);
-  padding: 18px 20px;
+  padding: 20px 24px;
   font-size: 14px;
+  font-family: var(--mono);
   border-radius: var(--radius-lg);
-  border: 1px solid rgba(255,255,255,0.02);
-  box-shadow: var(--shadow-sm);
+  border: 1px solid rgba(255,255,255,0.05);
+  box-shadow: var(--shadow-md);
   overflow: auto;
-  margin: 20px 0;
+  margin: 24px 0;
   white-space: pre;
   word-break: normal;
+  position: relative;
+  transition: box-shadow var(--transition-fast);
+}
+.content pre:hover {
+  box-shadow: var(--shadow-lg);
 }
 .content pre code {
   display: block;

@@ -1,28 +1,53 @@
 /* Docs navigation */
 .docs-nav {
-  margin-top: 3rem;
+  margin-top: 4rem;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 1rem;
+  gap: 1.5rem;
   font-family: var(--sans, system-ui, sans-serif);
+  animation: fadeIn var(--transition-slow) ease-out;
 }
 
 .docs-nav a {
-  display: inline-block;
-  padding: 0.6rem 1.2rem;
-  border-radius: 8px;
-  background: #0F1F47;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 20px;
+  border-radius: var(--radius-lg);
+  background: var(--gradient-primary);
   color: #fff;
   font-weight: 500;
   text-decoration: none;
-  transition: background 0.2s ease, transform 0.15s ease;
+  transition: all var(--transition-fast);
   white-space: nowrap;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid transparent;
+  position: relative;
+  overflow: hidden;
+}
+
+.docs-nav a::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, transparent 100%);
+  opacity: 0;
+  transition: opacity var(--transition-fast);
 }
 
 .docs-nav a:hover {
-  background: var(--accent); /* slightly darker */
-  transform: translateY(-2px);
+  background: var(--accent-hover);
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-md);
+}
+
+.docs-nav a:hover::before {
+  opacity: 1;
+}
+
+.docs-nav a:active {
+  transform: translateY(-1px);
 }
 
 .docs-nav .btn-prev {
