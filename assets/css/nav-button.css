@@ -15,17 +15,20 @@
   gap: 8px;
   padding: 12px 20px;
   border-radius: var(--radius-lg);
-  background: var(--gradient-primary);
+  background: var(--accent-light);
   color: #fff;
   font-weight: 500;
   text-decoration: none;
   transition: all var(--transition-fast);
   white-space: nowrap;
   box-shadow: var(--shadow-sm);
-  border: 1px solid transparent;
   position: relative;
   overflow: hidden;
+
+  /* fixed border */
+  border: 5px solid #034078;
 }
+
 
 .docs-nav a::before {
   content: '';
