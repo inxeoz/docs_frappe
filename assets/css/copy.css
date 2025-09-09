@@ -24,6 +24,7 @@ pre {
 pre code {
   display: block;
   white-space: pre;    /* use pre-wrap if you prefer line-wrapping */
+  background: var(--code-bg);
 }
 
 /* Copy button */

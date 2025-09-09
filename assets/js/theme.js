@@ -15,7 +15,11 @@
     '--surface-elevated': '#fefefe',
     '--callout-bg': '#f8fafc',
     '--border-color': 'rgba(148, 163, 184, 0.2)',
-    '--sidebar-bg': 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)'
+    '--sidebar-bg': 'linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%)',
+ '--code-bg': '#4A5568',
+  '--code-color': '#e2e8f0',
+  '--code-accent': '#38bdf8',
+     
   };
 
   const darkVars = {
@@ -27,7 +31,10 @@
     '--surface-elevated': '#334155',
     '--callout-bg': '#1e293b',
     '--border-color': 'rgba(148, 163, 184, 0.1)',
-    '--sidebar-bg': 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)'
+    '--sidebar-bg': 'linear-gradient(135deg, #1e293b 0%, #0f172a 100%)',
+    '--code-bg': '#2D3142',
+  '--code-color': '#e2e8f0',
+  '--code-accent': '#38bdf8',
   };
 
   // Apply variable map onto :root.style

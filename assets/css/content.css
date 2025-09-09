@@ -77,7 +77,7 @@
 /* Inline code */
 .content code {
   font-size: 0.95em;
-  background: var(--accent-04);
+  background: var(--code-bg);
   color: var(--text-strong);
   padding: 0.12em 0.4em;
   border-radius: var(--radius-sm);
@@ -111,7 +111,7 @@
   transition: box-shadow var(--transition-fast);
 }
 .content pre:hover { box-shadow: var(--shadow-lg); }
-.content pre code { display: block; background: transparent; color: inherit; }
+.content pre code { display: block; color: inherit;  background: var(--code-bg); }
 
 /* small keyboard tag */
 .content kbd {
