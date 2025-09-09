@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Creating a New Site</title>
+  <title>DocType Naming Rule</title>
   <link rel="stylesheet" href="/assets/css/common.css">
   <link rel="stylesheet" href="/assets/css/sidebar.css">
   <link rel="stylesheet" href="/assets/css/content.css">
@@ -24,7 +24,7 @@
       </svg>
     </button>
 
-    <div class="mobile-title">Creating a New Site</div>
+    <div class="mobile-title">DocType Naming Rule</div>
 
     <button id="mobile-theme-toggle" class="mobile-theme-toggle" aria-label="Toggle dark/light theme" onclick="ToggleTheme()">
       <svg class="theme-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -100,7 +100,7 @@
                 
               
                 
-                  <li class="nav-item  active">
+                  <li class="nav-item ">
                     <a href="/docs/04-new-site/">Creating a New Site</a>
                   </li>
                 
@@ -211,7 +211,7 @@
                 
               
                 
-                  <li class="nav-item ">
+                  <li class="nav-item  active">
                     <a href="/docs/11.2-doctype-naming/">DocType Naming Rule</a>
                   </li>
                 
@@ -226,35 +226,237 @@
 
     <main class="content">
       <article class="doc-article">
-        <h1>Creating a New Site</h1>
+        <h1>DocType Naming Rule</h1>
 
-        <h2 id="create-new-site">Create New Site</h2>
+        <hr />
 
-<p>this will ask for 
-MariaDB root password (password which You set during sudo mysql_secure_installation )
-Administrator password to set (which will be used for frappe desktop login)</p>
+<h2 id="-what-is-a-naming-rule">🔹 What is a Naming Rule?</h2>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site msite.local
+<ul>
+  <li>
+    <p>Every DocType in Frappe has a <strong>Name</strong> (unique ID).</p>
+  </li>
+  <li>
+    <p>By default, it can either be:</p>
 
-</code></pre></div></div>
+    <ul>
+      <li>
+        <p>An <strong>Auto-generated ID</strong> (like <em>INV-0001</em>), or</p>
+      </li>
+      <li>
+        <p>A <strong>User-input value</strong> (like entering Customer Name).</p>
+      </li>
+    </ul>
+  </li>
+</ul>
 
-<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(menv) ubuntu@ip-172-31-39-119:~/mbench$ bench new-site msite.local
-Enter mysql super user [root]:
-MySQL root password:
+<p>You set this under <strong>DocType → Naming</strong> section.</p>
 
-Installing frappe...
-Updating DocTypes for frappe        : [========================================] 100%
-Set Administrator password:
-Updating Dashboard for frappe
-msite.local: SystemSettings.enable_scheduler is UNSET
-*** Scheduler is disabled ***
-(menv) ubuntu@ip-172-31-39-119:~/mbench$
-</code></pre></div></div>
+<hr />
 
-<h2 id="use-a-site">Use a site</h2>
-<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench use msite.local
-</code></pre></div></div>
+<h2 id="-types-of-naming-rules">🔹 Types of Naming Rules</h2>
 
+<h3 id="1-autoname">1. <strong>Autoname</strong></h3>
+
+<p>This field controls how the name is generated. Options:</p>
+
+<ol>
+  <li>
+    <p><strong>Prompt</strong></p>
+
+    <ul>
+      <li>
+        <p>User is asked to enter the name manually.</p>
+      </li>
+      <li>
+        <p>Example: <em>Student Roll Number</em>.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>field:fieldname</strong></p>
+
+    <ul>
+      <li>
+        <p>Uses the value of another field as the record name.</p>
+      </li>
+      <li>
+        <p>Example: If <code class="language-plaintext highlighter-rouge">customer_name</code> is the field, then the document name = <em>“John Doe”</em>.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>naming_series:</strong></p>
+
+    <ul>
+      <li>
+        <p>Uses a prefix + incrementing number.</p>
+      </li>
+      <li>
+        <p>Example: <code class="language-plaintext highlighter-rouge">INV-.YYYY.-</code> → <em>INV-2025-0001</em>.</p>
+      </li>
+      <li>
+        <p>Needs a <strong>Naming Series field</strong> in the DocType.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>format:…</strong></p>
+
+    <ul>
+      <li>
+        <p>Lets you define a custom format.</p>
+      </li>
+      <li>
+        <p>Example: <code class="language-plaintext highlighter-rouge">format:{customer}-{####}</code> → <em>CUST-0001</em>.</p>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">{####}</code> = running number.</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>hash</strong></p>
+
+    <ul>
+      <li>
+        <p>Auto generates a random unique hash.</p>
+      </li>
+      <li>
+        <p>Example: <em>f8a3c2d1b9</em>.</p>
+      </li>
+      <li>
+        <p>Used when uniqueness is more important than readability.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="2-naming-series">2. <strong>Naming Series</strong></h3>
+
+<ul>
+  <li>
+    <p>When you choose <code class="language-plaintext highlighter-rouge">naming_series:</code>, you can define <strong>series patterns</strong>.</p>
+  </li>
+  <li>
+    <p>Example:</p>
+
+    <ul>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">SO-.YYYY.-</code> → <em>SO-2025-0001</em></p>
+      </li>
+      <li>
+        <p><code class="language-plaintext highlighter-rouge">GRN-.MM.-</code> → <em>GRN-09-0005</em></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>👉 Variables you can use:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">.YYYY.</code> → Year</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">.YY.</code> → Last 2 digits of year</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">.MM.</code> → Month</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">.DD.</code> → Day</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">####</code> → Auto-increment number</p>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="3-set-as-title-field">3. <strong>Set as Title Field</strong></h3>
+
+<ul>
+  <li>
+    <p>Separately, you can set a <strong>Title Field</strong> (different from Name).</p>
+  </li>
+  <li>
+    <p>Example: In <em>Sales Invoice</em>, name = <em>SINV-0001</em>, but title = <em>Customer Name</em>.</p>
+  </li>
+  <li>
+    <p>Useful for user-friendly display in list view.</p>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-example-scenarios">🔹 Example Scenarios</h2>
+
+<ul>
+  <li>
+    <p><strong>Customer Master</strong></p>
+
+    <ul>
+      <li>
+        <p>Autoname: <code class="language-plaintext highlighter-rouge">field:customer_name</code></p>
+      </li>
+      <li>
+        <p>Name = <em>John Doe</em></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Sales Order</strong></p>
+
+    <ul>
+      <li>
+        <p>Autoname: <code class="language-plaintext highlighter-rouge">naming_series:</code></p>
+      </li>
+      <li>
+        <p>Naming Series: <code class="language-plaintext highlighter-rouge">SO-.YYYY.-</code></p>
+      </li>
+      <li>
+        <p>Name = <em>SO-2025-0001</em></p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Student Admission Form</strong></p>
+
+    <ul>
+      <li>
+        <p>Autoname: <code class="language-plaintext highlighter-rouge">format:ADM-{####}</code></p>
+      </li>
+      <li>
+        <p>Name = <em>ADM-0001</em></p>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<hr />
+
+<p>⚡ In short:</p>
+
+<ul>
+  <li>
+    <p><strong>Prompt</strong> → User enters name.</p>
+  </li>
+  <li>
+    <p><strong>field:…</strong> → Copy from a field.</p>
+  </li>
+  <li>
+    <p><strong>naming_series</strong> → Prefix + number system.</p>
+  </li>
+  <li>
+    <p><strong>format:…</strong> → Fully custom pattern.</p>
+  </li>
+  <li>
+    <p><strong>hash</strong> → Random unique ID.</p>
+  </li>
+</ul>
 
       </article>
 
@@ -262,11 +464,11 @@ msite.local: SystemSettings.enable_scheduler is UNSET
       <div class="docs-nav">
 
         
-        <a class="btn-prev" href="/docs/03-installing-apps/">➡️ Prev: Installing Apps</a>
+        <a class="btn-prev" href="/docs/04-new-site/">➡️ Prev: Creating a New Site</a>
         
 
         
-        <a class="btn-next" href="/docs/05-bench-console/">➡️ Next: Using Bench Console</a>
+        <a class="btn-next" href="/docs/06-backup/">➡️ Next: Backing Up Data</a>
         
 
       </div>
