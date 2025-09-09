@@ -3,11 +3,11 @@ title: set-config in frappe
 layout: default
 order: 9
 
-prev_page: /docs/04-new-site/
-prev_title: Creating a New Site
+prev_page: /docs/08-nginx/
+prev_title: Nginx Reverse Proxy for Frappe
 
-next_page: /docs/02-custom-app/
-next_title: Creating a New Site
+next_page: /docs/10-kill-frappe-process/
+next_title: Kill Frappe Process
 
 ---
 

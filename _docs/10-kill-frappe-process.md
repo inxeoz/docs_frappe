@@ -3,11 +3,11 @@ title: Kill Frappe Process
 layout: default
 order: 10
 
-prev_page: /docs/04-new-site/
-prev_title: Creating a New Site
+prev_page: /docs/09-set-config/
+prev_title: set-config in frappe
 
-# next_page: /docs/02-custom-app/
-# next_title: Creating a New Site
+# next_page: 
+# next_title: 
 
 ---
 

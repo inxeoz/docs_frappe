@@ -3,11 +3,11 @@ title: Restoring Database
 layout: default
 order: 7
 
-prev_page: /docs/04-new-site/
-prev_title: Creating a New Site
+prev_page: /docs/06-backup/
+prev_title: Backing Up Data
 
-next_page: /docs/02-custom-app/
-next_title: Creating a New Site
+next_page: /docs/08-nginx/
+next_title: Nginx Reverse Proxy for Frappe
 
 ---
 
