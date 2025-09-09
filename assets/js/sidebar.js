@@ -4,40 +4,66 @@
   
   function q(sel, el){ return (el || document).querySelector(sel); }
   function qa(sel, el){ return Array.from((el || document).querySelectorAll(sel)); }
+  
+  // Ensure DOM is ready
+  function initSidebar() {
 
   // Toggle mobile sidebar with enhanced functionality
   var sidebar = q('#site-sidebar');
   var toggle = q('#sidebar-toggle');
+  var mobileToggle = q('#mobile-sidebar-toggle');
   var overlay = document.createElement('div');
   overlay.className = 'sidebar-overlay';
   
-  if(toggle && sidebar){
+  // Handle both mobile and desktop toggles
+  var toggleButtons = [toggle, mobileToggle].filter(Boolean);
+  var closeButton = q('#sidebar-close');
+  
+  if((toggleButtons.length || closeButton) && sidebar){
     // Add overlay to page
     document.body.appendChild(overlay);
     
     function openSidebar() {
       sidebar.classList.add('open');
       overlay.classList.add('active');
-      toggle.setAttribute('aria-expanded', 'true');
+      document.body.classList.add('sidebar-open');
+      toggleButtons.forEach(function(btn) {
+        if(btn) btn.setAttribute('aria-expanded', 'true');
+      });
       document.body.style.overflow = 'hidden'; // Prevent background scroll
     }
     
     function closeSidebar() {
       sidebar.classList.remove('open');
       overlay.classList.remove('active');
-      toggle.setAttribute('aria-expanded', 'false');
+      document.body.classList.remove('sidebar-open');
+      toggleButtons.forEach(function(btn) {
+        if(btn) btn.setAttribute('aria-expanded', 'false');
+      });
       document.body.style.overflow = '';
     }
     
-    toggle.addEventListener('click', function(e){
-      e.stopPropagation();
-      var open = sidebar.classList.contains('open');
-      if (open) {
-        closeSidebar();
-      } else {
-        openSidebar();
-      }
+    // Add click handlers to all toggle buttons
+    toggleButtons.forEach(function(btn) {
+      btn.addEventListener('click', function(e){
+        e.preventDefault();
+        e.stopPropagation();
+        var open = sidebar.classList.contains('open');
+        if (open) {
+          closeSidebar();
+        } else {
+          openSidebar();
+        }
+      });
     });
+    
+    // Add click handler to close button
+    if (closeButton) {
+      closeButton.addEventListener('click', function(e) {
+        e.stopPropagation();
+        closeSidebar();
+      });
+    }
     
     // Close sidebar when clicking overlay
     overlay.addEventListener('click', closeSidebar);
@@ -51,12 +77,18 @@
     
     // Close sidebar when clicking on links (mobile)
     qa('.nav-item a', sidebar).forEach(function(link) {
-      link.addEventListener('click', function() {
-        if (window.innerWidth <= 900) {
-          setTimeout(closeSidebar, 100);
+      link.addEventListener('click', function(e) {
+        if (window.innerWidth <= 900 && sidebar.classList.contains('open')) {
+          // Add a slight delay to allow the navigation to start
+          setTimeout(function() {
+            closeSidebar();
+          }, 150);
         }
       });
     });
+    
+    // Note: Section and group toggles don't close the sidebar
+    // This allows better navigation experience on mobile
   }
 
   // Section toggles with animation support
@@ -130,12 +162,21 @@
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(function() {
       if(window.innerWidth > 900 && sidebar && sidebar.classList.contains('open')) {
-        sidebar.classList.remove('open');
-        overlay.classList.remove('active');
-        toggle.setAttribute('aria-expanded', 'false');
-        document.body.style.overflow = '';
+        closeSidebar();
       }
     }, 250);
   });
+
+  
+  } // End of initSidebar function
+  
+  // Initialize when DOM is ready
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', initSidebar);
+  } else {
+    initSidebar();
+  }
   
 })();
+
+

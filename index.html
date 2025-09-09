@@ -5,9 +5,10 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <title>Documentation</title>
+  <link rel="stylesheet" href="/assets/css/common.css">
   <link rel="stylesheet" href="/assets/css/sidebar.css">
   <link rel="stylesheet" href="/assets/css/content.css">
-  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="stylesheet" href="/assets/css/copy.css">
   <link rel="stylesheet" href="/assets/css/nav-button.css">
 
 
@@ -15,13 +16,50 @@
 </head>
 
 <body>
+  <!-- Mobile header - only visible on small screens -->
+  <header class="mobile-header">
+    <button id="mobile-sidebar-toggle" class="mobile-hamburger" aria-expanded="false" aria-controls="site-sidebar" aria-label="Toggle navigation menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 12h18m-9-9h9m-9 18h9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+    <div class="mobile-title">Documentation</div>
+    <button id="mobile-theme-toggle" class="mobile-theme-toggle" aria-label="Toggle dark/light theme">
+      <svg class="theme-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <svg class="theme-icon theme-icon-dark" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </button>
+  </header>
+
   <div class="page-wrap">
     <!-- _includes/sidebar.html -->
 <nav id="site-sidebar" class="sidebar" aria-label="Sidebar navigation">
   <div class="sidebar-inner">
-    <button id="sidebar-toggle" class="sidebar-toggle" aria-expanded="true" aria-controls="sidebar-list">
-      ☰
+    <!-- Mobile close button - visible only when sidebar is open -->
+    <button id="sidebar-close" class="sidebar-close" aria-label="Close navigation menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="sr-only">Close</span>
     </button>
+
+    <!-- Theme toggle button -->
+    <div class="sidebar-header">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme" onclick="ToggleTheme()">
+        <svg class="theme-icon theme-icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <svg class="theme-icon theme-icon-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span class="theme-label">Theme</span>
+      </button>
+    </div>
 
     <ul id="sidebar-list" class="sidebar-list">
       
@@ -168,6 +206,8 @@
   <script src="/assets/js/copy-code.js"></script>
   <script src="/assets/js/sidebar.js"></script>
   <script src="/assets/js/content-toc.js"></script>
+  <script src="/assets/js/modern-features.js"></script>
+  <script src="/assets/js/theme.js" defer></script>
 
 
 
