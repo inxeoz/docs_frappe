@@ -24,12 +24,20 @@
         {{ content }}
       </article>
 
-      {% if page.next_page %}
+      {% if page.next_page or page.prev_page %}
       <div class="docs-nav">
+
+        {% if page.prev_page %}
         <a class="btn-prev" href="{{ page.prev_page }}">➡️ Prev: {{ page.prev_title }}</a>
-         <a class="btn-next" href="{{ page.next_page }}">➡️ Next: {{ page.next_title }}</a>
+        {% endif %}
+
+        {% if page.next_page %}
+        <a class="btn-next" href="{{ page.next_page }}">➡️ Next: {{ page.next_title }}</a>
+        {% endif %}
+
       </div>
       {% endif %}
+
 
 
     </main>
