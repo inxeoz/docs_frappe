@@ -36,3 +36,12 @@
   items:
     - title: Kill Frappe process
       url: /docs/10-kill-frappe-process/
+
+- title: DocType
+  items:
+    - title: DocType Default Paramters
+      url: /docs/11-doctype/
+    - title: DocType Fields
+      url: /docs/11.1-doctype-fields/
+    - title: DocType Naming Rule
+      url: /docs/11.2-doctype-naming/
