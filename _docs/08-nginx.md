@@ -1,6 +1,14 @@
 ---
 title: Nginx Reverse Proxy for Frappe
 layout: default
+order: 8
+
+prev_page: /docs/04-new-site/
+prev_title: Creating a New Site
+
+next_page: /docs/02-custom-app/
+next_title: Creating a New Site
+
 ---
 
 ## Install nginx

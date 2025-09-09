@@ -1,6 +1,13 @@
 ---
 title: Installation (Ubuntu)
 layout: default
+
+prev_page: /docs/04-new-site/
+prev_title: Creating a New Site
+
+next_page: /docs/02-custom-app/
+next_title: Creating a New Site
+order: 1
 ---
 
 

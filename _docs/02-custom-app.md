@@ -1,6 +1,12 @@
 ---
 title: Creating a Custom Frappe App
 layout: default
+order: 2
+prev_page: /docs/04-new-site/
+prev_title: Creating a New Site
+
+next_page: /docs/02-custom-app/
+next_title: Creating a New Site
 ---
 
 
