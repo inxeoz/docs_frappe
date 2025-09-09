@@ -49,7 +49,7 @@
   border: 0;
   padding: 6px 0;
   font-weight: 600;
-  color: var(--text-strong);
+  color: var(--text);
   cursor: pointer;
 }
 .section-items {
@@ -87,7 +87,7 @@
   padding: 6px 10px;
   font-weight: 600;
   cursor: pointer;
-  color: var(--text-strong);
+  color: var(--text);
 }
 .group-items { padding-left: 8px; margin-top: 6px; }
 
