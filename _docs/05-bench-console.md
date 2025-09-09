@@ -16,7 +16,7 @@ next_title: Backing Up Data
 bench --site mysite.localhost console
 ```
 
-## Examples
+## Examples (i.e python script)
 ```python
 frappe.get_doc("User", "Administrator").full_name
 

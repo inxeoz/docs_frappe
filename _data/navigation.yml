@@ -13,10 +13,14 @@
       url: /docs/04-new-site/
     - title: Use set-config to enable developer_mode
       url: /docs/09-set-config/
-- title: Usage
+- title: Bench Console
   items:
     - title: Using Bench Console
       url: /docs/05-bench-console/
+    - title: Bench Console Usages
+      url: /docs/05.1-bench-console/
+    - title: Bench Console Usages (Access & Security Mgmt)
+      url: /docs/05.2-bench-console/
 - title: Maintenance
   items:
     - title: Backing Up Data
