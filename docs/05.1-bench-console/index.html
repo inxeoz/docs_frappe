@@ -1,0 +1,436 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Using Bench Console</title>
+  <link rel="stylesheet" href="/assets/css/common.css">
+  <link rel="stylesheet" href="/assets/css/sidebar.css">
+  <link rel="stylesheet" href="/assets/css/content.css">
+  <link rel="stylesheet" href="/assets/css/copy.css">
+  <link rel="stylesheet" href="/assets/css/nav-button.css">
+
+
+
+</head>
+
+<body>
+  <!-- Mobile header - only visible on small screens -->
+  <header class="mobile-header">
+    <button id="mobile-sidebar-toggle" class="mobile-hamburger" aria-expanded="false" aria-controls="site-sidebar" aria-label="Toggle navigation menu">
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M3 12h18m-9-9h9m-9 18h9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+    </button>
+
+    <div class="mobile-title">Using Bench Console</div>
+
+    <button id="mobile-theme-toggle" class="mobile-theme-toggle" aria-label="Toggle dark/light theme" onclick="ToggleTheme()">
+      <svg class="theme-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>
+      </svg>
+      <svg class="theme-icon theme-icon-dark" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+      </svg>
+    </button>
+
+  </header>
+
+  <div class="page-wrap">
+    <!-- _includes/sidebar.html -->
+<nav id="site-sidebar" class="sidebar" aria-label="Sidebar navigation">
+  <div class="sidebar-inner">
+    <!-- Mobile close button - visible only when sidebar is open -->
+    <button id="sidebar-close" class="sidebar-close" aria-label="Close navigation menu">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
+      <span class="sr-only">Close</span>
+    </button>
+
+    <!-- Theme toggle button -->
+    <div class="sidebar-header">
+      <button id="theme-toggle" class="theme-toggle" aria-label="Toggle dark/light theme" title="Toggle theme" onclick="ToggleTheme()">
+        <svg class="theme-icon theme-icon-light" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
+          <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <svg class="theme-icon theme-icon-dark" width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
+        </svg>
+        <span class="theme-label">Theme</span>
+      </button>
+    </div>
+
+    <ul id="sidebar-list" class="sidebar-list">
+      
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Getting Started</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/01-installation/">Installation</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Development</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/02-custom-app/">Creating a Custom Frappe App</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/03-installing-apps/">Installing Apps</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/04-new-site/">Creating a New Site</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/09-set-config/">Use set-config to enable developer_mode</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Bench Console</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/05-bench-console/">Using Bench Console</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item  active">
+                    <a href="/docs/05.1-bench-console/">Bench Console Usages</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/05.2-bench-console/">Bench Console Usages (Access & Security Mgmt)</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Maintenance</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/06-backup/">Backing Up Data</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/07-restore/">Restoring Database</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Deployment</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/08-nginx/">Nginx Reverse Proxy Setup</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+        <li class="sidebar-section">
+          <button class="section-toggle" aria-expanded="false">Extra</button>
+          
+            <ul class="section-items">
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/10-kill-frappe-process/">Kill Frappe process</a>
+                  </li>
+                
+              
+            </ul>
+          
+        </li>
+      
+    </ul>
+  </div>
+</nav>
+
+    <main class="content">
+      <article class="doc-article">
+        <h1>Using Bench Console</h1>
+
+        <hr />
+
+<h3 id="-1-work-with-doctypes--orm">🔹 1. Work with DocTypes &amp; ORM</h3>
+
+<ul>
+  <li>
+    <p>Create, read, update, delete (CRUD) records.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">import</span> <span class="nn">frappe</span>
+<span class="n">doc</span> <span class="o">=</span> <span class="n">frappe</span><span class="p">.</span><span class="n">get_doc</span><span class="p">(</span><span class="s">"ToDo"</span><span class="p">,</span> <span class="s">"TASK0001"</span><span class="p">)</span>  <span class="c1"># fetch document
+</span><span class="n">doc</span><span class="p">.</span><span class="n">status</span> <span class="o">=</span> <span class="s">"Closed"</span>
+<span class="n">doc</span><span class="p">.</span><span class="n">save</span><span class="p">()</span>
+
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Query records using <strong>frappe ORM</strong>:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">todos</span> <span class="o">=</span> <span class="n">frappe</span><span class="p">.</span><span class="n">get_all</span><span class="p">(</span><span class="s">"ToDo"</span><span class="p">,</span> <span class="n">filters</span><span class="o">=</span><span class="p">{</span><span class="s">"status"</span><span class="p">:</span> <span class="s">"Open"</span><span class="p">},</span> <span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s">"name"</span><span class="p">,</span> <span class="s">"description"</span><span class="p">])</span>
+
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Insert new documents:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">new_todo</span> <span class="o">=</span> <span class="n">frappe</span><span class="p">.</span><span class="n">get_doc</span><span class="p">({</span><span class="s">"doctype"</span><span class="p">:</span> <span class="s">"ToDo"</span><span class="p">,</span> <span class="s">"description"</span><span class="p">:</span> <span class="s">"From console"</span><span class="p">})</span>
+<span class="n">new_todo</span><span class="p">.</span><span class="n">insert</span><span class="p">()</span>
+
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="-2-run-whitelisted--api-methods">🔹 2. Run Whitelisted / API Methods</h3>
+
+<ul>
+  <li>
+    <p>Call functions exposed with <code class="language-plaintext highlighter-rouge">@frappe.whitelist</code>:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">call</span><span class="p">(</span><span class="s">"frappe.desk.form.load.getdoc"</span><span class="p">,</span> <span class="n">doctype</span><span class="o">=</span><span class="s">"ToDo"</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s">"TASK0001"</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="-3-debugging--development">🔹 3. Debugging &amp; Development</h3>
+
+<ul>
+  <li>
+    <p>Import and test functions from your <strong>custom apps</strong>.</p>
+  </li>
+  <li>
+    <p>Run quick snippets to verify business logic.</p>
+  </li>
+  <li>
+    <p>Print logs, check variables, or test patches/migrations.</p>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="-4-database-access">🔹 4. Database Access</h3>
+
+<ul>
+  <li>
+    <p>Direct SQL queries:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">sql</span><span class="p">(</span><span class="s">"SELECT name, status FROM tabToDo WHERE status='Open'"</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Use db API:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">get_value</span><span class="p">(</span><span class="s">"User"</span><span class="p">,</span> <span class="p">{</span><span class="s">"email"</span><span class="p">:</span> <span class="s">"admin@example.com"</span><span class="p">},</span> <span class="s">"name"</span><span class="p">)</span>
+<span class="n">frappe</span><span class="p">.</span><span class="n">db</span><span class="p">.</span><span class="n">set_value</span><span class="p">(</span><span class="s">"User"</span><span class="p">,</span> <span class="s">"Administrator"</span><span class="p">,</span> <span class="s">"first_name"</span><span class="p">,</span> <span class="s">"Admin"</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="-5-user--permissions">🔹 5. User &amp; Permissions</h3>
+
+<ul>
+  <li>
+    <p>Switch users in context:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">set_user</span><span class="p">(</span><span class="s">"Administrator"</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Check permissions:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">has_permission</span><span class="p">(</span><span class="s">"ToDo"</span><span class="p">,</span> <span class="s">"read"</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="-6-caching--config">🔹 6. Caching &amp; Config</h3>
+
+<ul>
+  <li>
+    <p>Work with cache:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">cache</span><span class="p">().</span><span class="n">set_value</span><span class="p">(</span><span class="s">"key"</span><span class="p">,</span> <span class="s">"value"</span><span class="p">)</span>
+<span class="n">frappe</span><span class="p">.</span><span class="n">cache</span><span class="p">().</span><span class="n">get_value</span><span class="p">(</span><span class="s">"key"</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Change site config:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">conf</span><span class="p">.</span><span class="n">get</span><span class="p">(</span><span class="s">"developer_mode"</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="-7-background-jobs--tasks">🔹 7. Background Jobs &amp; Tasks</h3>
+
+<ul>
+  <li>
+    <p>Queue jobs manually:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">frappe.utils.background_jobs</span> <span class="kn">import</span> <span class="n">enqueue</span>
+<span class="n">enqueue</span><span class="p">(</span><span class="s">"frappe.email.queue.flush"</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="-8-utilities">🔹 8. Utilities</h3>
+
+<ul>
+  <li>
+    <p>Dates &amp; time utilities (<code class="language-plaintext highlighter-rouge">frappe.utils</code>).</p>
+  </li>
+  <li>
+    <p>File handling (<code class="language-plaintext highlighter-rouge">frappe.utils.file_manager</code>).</p>
+  </li>
+  <li>
+    <p>Notifications, emails, printing, exporting.</p>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="-9-maintenance--patching">🔹 9. Maintenance &amp; Patching</h3>
+
+<ul>
+  <li>
+    <p>Run patches without migration:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="kn">from</span> <span class="nn">frappe.modules.patch_handler</span> <span class="kn">import</span> <span class="n">run_single</span>
+<span class="n">run_single</span><span class="p">(</span><span class="s">"your_app.patches.some_patch"</span><span class="p">)</span>
+
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Fix corrupt documents.</p>
+  </li>
+  <li>
+    <p>Update workflow states.</p>
+  </li>
+</ul>
+
+<hr />
+
+<h3 id="-10-site-context">🔹 10. Site Context</h3>
+
+<ul>
+  <li>
+    <p>Get current site:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">local</span><span class="p">.</span><span class="n">site</span>
+
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Access session info:</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">session</span><span class="p">.</span><span class="n">user</span>
+
+</code></pre></div>    </div>
+  </li>
+</ul>
+
+<hr />
+
+      </article>
+
+      
+      <div class="docs-nav">
+
+        
+        <a class="btn-prev" href="/docs/04-new-site/">➡️ Prev: Creating a New Site</a>
+        
+
+        
+        <a class="btn-next" href="/docs/06-backup/">➡️ Next: Backing Up Data</a>
+        
+
+      </div>
+      
+
+
+
+    </main>
+  </div>
+  <script src="/assets/js/copy-code.js"></script>
+  <script src="/assets/js/sidebar.js"></script>
+  <script src="/assets/js/content-toc.js"></script>
+  <script src="/assets/js/modern-features.js"></script>
+  <script src="/assets/js/theme.js" defer></script>
+
+
+
+</body>
+
+</html>

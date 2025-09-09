@@ -4,7 +4,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Documentation</title>
+  <title>DocType</title>
   <link rel="stylesheet" href="/assets/css/common.css">
   <link rel="stylesheet" href="/assets/css/sidebar.css">
   <link rel="stylesheet" href="/assets/css/content.css">
@@ -24,7 +24,7 @@
       </svg>
     </button>
 
-    <div class="mobile-title">Documentation</div>
+    <div class="mobile-title">DocType</div>
 
     <button id="mobile-theme-toggle" class="mobile-theme-toggle" aria-label="Toggle dark/light theme" onclick="ToggleTheme()">
       <svg class="theme-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -199,19 +199,202 @@
 
     <main class="content">
       <article class="doc-article">
-        <h1>Documentation</h1>
+        <h1>DocType</h1>
 
-        <h2 id="documentation">Documentation</h2>
+        <hr />
 
-<p>Check out the complete <a href="https://docs.frappe.io/framework/user/en/introduction">Frappe Docs Offical</a>.</p>
+<h3 id="required-fields">Required Fields:</h3>
 
-<h3 id="frappe-docs-by-mpsedc">Frappe Docs By MPSEDC</h3>
+<ol>
+  <li>
+    <p><strong>Name</strong>*</p>
 
-<p>Get Started <a href="/docs/01-installation">DOCS by MPSEDC</a>.</p>
+    <ul>
+      <li>
+        <p>The name of your new DocType (e.g., <code class="language-plaintext highlighter-rouge">Invoice</code>, <code class="language-plaintext highlighter-rouge">Student</code>, <code class="language-plaintext highlighter-rouge">Task</code>).</p>
+      </li>
+      <li>
+        <p>It becomes the table name internally (e.g., <code class="language-plaintext highlighter-rouge">tabInvoice</code>).</p>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Module</strong>*</p>
 
+    <ul>
+      <li>
+        <p>The Frappe app/module where this DocType will belong (e.g., <code class="language-plaintext highlighter-rouge">Accounts</code>, <code class="language-plaintext highlighter-rouge">Education</code>, <code class="language-plaintext highlighter-rouge">CRM</code>).</p>
+      </li>
+      <li>
+        <p>Helps organize and group related DocTypes.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<h3 id="options--checkboxes">Options / Checkboxes:</h3>
+
+<ol>
+  <li>
+    <p><strong>Is Submittable</strong></p>
+
+    <ul>
+      <li>
+        <p>Makes the DocType a <em>transactional document</em> that can be “Submitted”.</p>
+      </li>
+      <li>
+        <p>Once submitted, it <strong>cannot be edited</strong>; only canceled or amended (like a Sales Invoice, Purchase Order).</p>
+      </li>
+      <li>
+        <p>Useful for approval workflows.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p><strong>Is Child Table</strong></p>
+
+    <ul>
+      <li>
+        <p>Makes this DocType a <strong>child/line table</strong> inside another DocType.</p>
+      </li>
+      <li>
+        <p>Example: <em>Items table</em> inside <em>Sales Invoice</em>.</p>
+      </li>
+      <li>
+        <p>It will appear as a <strong>grid</strong> in the parent DocType.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p><strong>Is Single</strong></p>
+
+    <ul>
+      <li>
+        <p>The DocType will have only <strong>one record ever</strong> (no list view).</p>
+      </li>
+      <li>
+        <p>Data is stored in <code class="language-plaintext highlighter-rouge">tabSingles</code>.</p>
+      </li>
+      <li>
+        <p>Example: <em>Global Defaults</em>, <em>System Settings</em>.</p>
+      </li>
+      <li>
+        <p>Used for storing configuration/settings.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p><strong>Is Tree</strong></p>
+
+    <ul>
+      <li>
+        <p>Allows the DocType to have a <strong>hierarchical/tree structure</strong> using Nested Sets.</p>
+      </li>
+      <li>
+        <p>Example: <em>Chart of Accounts</em>, <em>Item Groups</em>, <em>Departments</em>.</p>
+      </li>
+      <li>
+        <p>Useful when records have parent-child relationships.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p><strong>Custom?</strong></p>
+
+    <ul>
+      <li>
+        <p>Indicates if this DocType is <strong>custom-created</strong> by the user, not part of the core app.</p>
+      </li>
+      <li>
+        <p>Checked automatically when you create a new DocType through the UI.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<ol>
+  <li>
+    <p><strong>Is Virtual</strong></p>
+
+    <ul>
+      <li>
+        <p>A <strong>non-database DocType</strong> (no physical table is created).</p>
+      </li>
+      <li>
+        <p>Useful when you want to represent external/derived data (e.g., API-based data, reports).</p>
+      </li>
+      <li>
+        <p>Used for advanced customizations.</p>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<hr />
+
+<p>👉 In short:</p>
+
+<ul>
+  <li>
+    <p><strong>Submittable</strong> → For transactional docs.</p>
+  </li>
+  <li>
+    <p><strong>Child Table</strong> → For nested tables inside other docs.</p>
+  </li>
+  <li>
+    <p><strong>Single</strong> → For settings/config docs (one record only).</p>
+  </li>
+  <li>
+    <p><strong>Tree</strong> → For hierarchical structures.</p>
+  </li>
+  <li>
+    <p><strong>Custom</strong> → Marks it as a custom DocType.</p>
+  </li>
+  <li>
+    <p><strong>Virtual</strong> → No DB table, used for computed or external data.</p>
+  </li>
+</ul>
+
+<hr />
 
       </article>
 
+      
+      <div class="docs-nav">
+
+        
+        <a class="btn-prev" href="/docs/04-new-site/">➡️ Prev: Creating a New Site</a>
+        
+
+        
+        <a class="btn-next" href="/docs/06-backup/">➡️ Next: Backing Up Data</a>
+        
+
+      </div>
       
 
 

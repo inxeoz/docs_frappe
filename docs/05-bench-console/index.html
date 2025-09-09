@@ -116,13 +116,25 @@
         </li>
       
         <li class="sidebar-section">
-          <button class="section-toggle" aria-expanded="false">Usage</button>
+          <button class="section-toggle" aria-expanded="false">Bench Console</button>
           
             <ul class="section-items">
               
                 
                   <li class="nav-item  active">
                     <a href="/docs/05-bench-console/">Using Bench Console</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/05.1-bench-console/">Bench Console Usages</a>
+                  </li>
+                
+              
+                
+                  <li class="nav-item ">
+                    <a href="/docs/05.2-bench-console/">Bench Console Usages (Access & Security Mgmt)</a>
                   </li>
                 
               
@@ -193,7 +205,7 @@
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> mysite.localhost console
 </code></pre></div></div>
 
-<h2 id="examples">Examples</h2>
+<h2 id="examples-ie-python-script">Examples (i.e python script)</h2>
 <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">frappe</span><span class="p">.</span><span class="n">get_doc</span><span class="p">(</span><span class="s">"User"</span><span class="p">,</span> <span class="s">"Administrator"</span><span class="p">).</span><span class="n">full_name</span>
 
 <span class="n">user</span> <span class="o">=</span> <span class="n">frappe</span><span class="p">.</span><span class="n">get_doc</span><span class="p">(</span><span class="s">"User"</span><span class="p">,</span> <span class="s">"test@example.com"</span><span class="p">)</span>
