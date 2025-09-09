@@ -1,22 +1,32 @@
+/* pre-global.css — ensure code blocks don't overflow and copy button fits */
+
 /* ensure the code block is the relative container */
 pre {
   position: relative;
-  padding: 20px 76px 20px 24px;  /* extra right padding to make room for the button */
+  padding: 20px 76px 20px 24px;  /* room for copy button on the right */
   border-radius: var(--radius-lg);
   background: var(--code-bg);
   color: var(--code-color);
   font-family: var(--mono);
   font-size: 14px;
-  overflow: auto;
+
+  overflow-x: auto;    /* horizontal scroll if needed */
+  overflow-y: auto;
   margin: 24px 0;
   border: 1px solid var(--border-color);
   box-shadow: var(--shadow-md);
+
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
-/* make sure code text lines do not wrap under the button */
-pre code { display: block; white-space: pre; }
+/* ensure code content doesn't wrap under the button; use wrapping option below if desired */
+pre code {
+  display: block;
+  white-space: pre;    /* use pre-wrap if you prefer line-wrapping */
+}
 
-/* copy button positioning and look */
+/* Copy button */
 .copy-btn {
   position: absolute;
   top: 16px;
@@ -38,54 +48,53 @@ pre code { display: block; white-space: pre; }
   opacity: 0.9;
   transition: all var(--transition-fast);
 }
-
-/* small hover / pressed tweaks */
-.copy-btn:hover { 
+.copy-btn:hover {
   opacity: 1;
   transform: translateY(-1px);
   background: var(--accent-light);
   border-color: var(--accent);
   color: var(--accent);
 }
-
-.copy-btn:active { 
-  transform: translateY(0);
-}
-
+.copy-btn:active { transform: translateY(0); }
 .copy-btn.copied {
-  background: rgba(34, 197, 94, 0.2);
-  border-color: rgba(34, 197, 94, 0.3);
+  background: rgba(34,197,94,0.2);
+  border-color: rgba(34,197,94,0.3);
   color: #22c55e;
 }
-
 .copy-btn.error {
-  background: rgba(239, 68, 68, 0.2);
-  border-color: rgba(239, 68, 68, 0.3);
+  background: rgba(239,68,68,0.2);
+  border-color: rgba(239,68,68,0.3);
   color: #ef4444;
 }
 
-/* Animations for copy button */
+/* Animations */
 @keyframes shake {
-  0%, 100% { transform: translateX(0); }
-  10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
-  20%, 40%, 60%, 80% { transform: translateX(2px); }
+  0%,100% { transform: translateX(0); }
+  10%,30%,50%,70%,90% { transform: translateX(-2px); }
+  20%,40%,60%,80% { transform: translateX(2px); }
 }
-
 @keyframes slideDown {
-  from {
-    max-height: 0;
-    opacity: 0;
-    transform: translateY(-10px);
+  from { max-height: 0; opacity: 0; transform: translateY(-10px); }
+  to { max-height: 200px; opacity: 1; transform: translateY(0); }
+}
+
+/* Mobile adjustments: ensure 10px gutters and smaller button */
+@media (max-width: 600px) {
+  pre {
+    padding: 16px 56px 16px 10px; /* keep room for button; ensure left padding >=10px */
+    margin-left: 10px;
+    margin-right: 10px;
   }
-  to {
-    max-height: 200px;
-    opacity: 1;
-    transform: translateY(0);
+  .copy-btn {
+    padding: 5px 8px;
+    font-size: 12px;
+    right: 10px;
   }
 }
 
-/* smaller button on narrow screens so it doesn't overlap */
-@media (max-width: 600px) {
-  pre { padding-right: 56px; } /* tighten a little */
-  .copy-btn { padding: 5px 8px; font-size: 12px; right: 10px; }
+/* Optional: if you prefer no horizontal scrolling on mobile, uncomment these */
+/*
+@media (max-width: 900px) {
+  pre, .content pre { white-space: pre-wrap; word-break: break-word; }
 }
+*/

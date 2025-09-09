@@ -11,7 +11,7 @@ next_title: Nginx Reverse Proxy for Frappe
 
 ---
 
-## Restore from SQL backup
+## Restore
 ```bash
 bench --site mysite.localhost --force restore path/to/database.sql.gz
 ```
