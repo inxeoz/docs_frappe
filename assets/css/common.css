@@ -69,3 +69,4 @@ img, picture, svg, video { max-width: 100%; display: block; }
 @media (prefers-reduced-motion: reduce) {
   * { transition: none !important; animation-duration: 0.001ms !important; animation-iteration-count: 1 !important; }
 }
+
