@@ -8,7 +8,6 @@
   margin-inline: auto;
   padding: var(--content-gutter);
   padding-top: 24px; /* aligns with sidebar inner padding */
-  font-family: var(--sans);
   color: var(--text);
   line-height: 1.7;
 }
@@ -26,7 +25,7 @@
 }
 
 .content h1, .doc-article h1 {
-  font-weight: 800;
+  /* font-weight: 800; */
   line-height: 1.05;
   margin-bottom: 14px;
   /* font-size: clamp(28px, 4vw, 44px); */
@@ -52,7 +51,7 @@
 /* paragraphs and links */
 .content p {
   margin: 0 0 1.15em 0;
-  color: #2b2b34;
+  color: var(--muted);
   font-size: clamp(16px, 1.6vw, 18px);
 }
 
@@ -112,7 +111,6 @@
 
 /* inline code */
 .content code {
-  font-family: var(--mono);
   font-size: 0.95em;
   background: rgba(87,123,141,0.15);
   color: inherit;
@@ -125,7 +123,6 @@
   background: var(--code-bg);
   color: var(--code-color);
   padding: 18px 20px;
-  font-family: var(--mono);
   font-size: 14px;
   border-radius: var(--radius-lg);
   border: 1px solid rgba(255,255,255,0.02);
@@ -139,7 +136,6 @@
   display: block;
   background: transparent;
   color: inherit;
-  font-family: inherit;
 }
 
 /* kbd */
@@ -148,7 +144,6 @@
   color: #fff;
   padding: 3px 8px;
   border-radius: 6px;
-  font-family: var(--mono);
   font-size: 13px;
 }
 

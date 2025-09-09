@@ -20,7 +20,7 @@ we get this type of error (because of background running frappe process)
 17:25:27 system        | watch.1 stopped (rc=-15)
 
 ```
-# To Fix it find the process id and kill with sudo
+## To Fix it find the process id and kill with sudo
 
 ```bash
 bench start | grep port
@@ -35,7 +35,7 @@ bench start | grep port
 (cenv)
 [inxeoz@manjaro-i3 | prob | 05:31:18 PM]$
 ```
-# find process id which using these port
+## find process id which using these port
 
 for each port
 
