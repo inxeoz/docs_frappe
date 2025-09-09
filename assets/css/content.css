@@ -68,17 +68,17 @@
 .content ul,
 .content ol {
   margin: 0 0 1.15em 1.25em;
-  color: #2d3748;
+  color: var(--text);
 }
 
 /* blockquote */
 .content blockquote {
   border-left: 4px solid var(--accent-10);
-  background: rgba(107,70,255,0.03);
+  background: var(--accent-04);
   padding: 12px 16px;
   margin: 18px 0;
   border-radius: var(--radius-sm);
-  color: #374151;
+  color: var(--text);
 }
 
 /* tables */
@@ -90,13 +90,15 @@
 }
 .content table th,
 .content table td {
-  border: 1px solid rgba(0,0,0,0.06);
+  border: 1px solid var(--border-color);
   padding: 10px 12px;
   text-align: left;
+  color: var(--text);
 }
 .content table thead th {
-  background: rgba(0,0,0,0.02);
+  background: var(--callout-bg);
   font-weight: 700;
+  color: var(--text-strong);
 }
 
 /* callouts: shared base + variants */
@@ -104,20 +106,31 @@
   padding: 12px 14px;
   border-radius: var(--radius-lg);
   margin: 18px 0;
-  border: 1px solid rgba(0,0,0,0.04);
+  border: 1px solid var(--border-color);
   background: var(--callout-bg);
+  color: var(--text);
 }
-.callout.info { border-left: 4px solid var(--accent); }
-.callout.warn { border-left: 4px solid #f59e0b; background: #fffaf0; }
-.callout.success { border-left: 4px solid #10b981; background: #f7fffb; }
+.callout.info { 
+  border-left: 4px solid var(--accent); 
+  background: var(--accent-04);
+}
+.callout.warn { 
+  border-left: 4px solid #f59e0b; 
+  background: rgba(245, 158, 11, 0.1);
+}
+.callout.success { 
+  border-left: 4px solid #10b981; 
+  background: rgba(16, 185, 129, 0.1);
+}
 
 /* inline code */
 .content code {
   font-size: 0.95em;
-  background: rgba(87,123,141,0.15);
-  color: inherit;
+  background: var(--accent-04);
+  color: var(--text-strong);
   padding: 0.12em 0.4em;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--border-color);
 }
 
 /* fenced code blocks */
@@ -148,11 +161,12 @@
 
 /* kbd */
 .content kbd {
-  background: #111827;
-  color: #fff;
+  background: var(--text-strong);
+  color: var(--surface);
   padding: 3px 8px;
-  border-radius: 6px;
+  border-radius: var(--radius-sm);
   font-size: 13px;
+  border: 1px solid var(--border-color);
 }
 
 /* Anchored headers: show anchor on hover */

@@ -70,9 +70,9 @@
     });
   }
 
-  // Theme detection and handling
+  // Theme detection and handling (minimal version - main logic is in sidebar.js)
   function setupThemeHandling() {
-    // Detect system theme changes
+    // Just detect system theme changes for smooth transitions
     const mediaQuery = window.matchMedia('(prefers-color-scheme: dark)');
     
     function handleThemeChange(e) {
@@ -86,22 +86,7 @@
     
     mediaQuery.addListener(handleThemeChange);
     
-    // Optional: Add theme toggle button functionality
-    const themeToggle = document.querySelector('#theme-toggle');
-    if (themeToggle) {
-      themeToggle.addEventListener('click', () => {
-        document.documentElement.classList.toggle('dark-theme');
-        localStorage.setItem('theme', 
-          document.documentElement.classList.contains('dark-theme') ? 'dark' : 'light'
-        );
-      });
-      
-      // Restore saved theme
-      const savedTheme = localStorage.getItem('theme');
-      if (savedTheme === 'dark') {
-        document.documentElement.classList.add('dark-theme');
-      }
-    }
+    // Note: Theme toggle functionality is handled in sidebar.js to avoid conflicts
   }
 
   // Performance monitoring

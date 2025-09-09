@@ -9,7 +9,7 @@ pre {
   font-size: 14px;
   overflow: auto;
   margin: 24px 0;
-  border: 1px solid rgba(255,255,255,0.05);
+  border: 1px solid var(--border-color);
   box-shadow: var(--shadow-md);
 }
 
@@ -24,10 +24,10 @@ pre code { display: block; white-space: pre; }
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  background: rgba(255, 255, 255, 0.1);
+  background: var(--surface-elevated);
   backdrop-filter: blur(10px);
-  color: var(--code-color);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-strong);
+  border: 1px solid var(--border-color);
   padding: 8px 12px;
   font-size: 12px;
   font-weight: 500;
@@ -35,7 +35,7 @@ pre code { display: block; white-space: pre; }
   cursor: pointer;
   box-shadow: var(--shadow-sm);
   z-index: 5;
-  opacity: 0.8;
+  opacity: 0.9;
   transition: all var(--transition-fast);
 }
 
@@ -43,8 +43,9 @@ pre code { display: block; white-space: pre; }
 .copy-btn:hover { 
   opacity: 1;
   transform: translateY(-1px);
-  background: rgba(255, 255, 255, 0.15);
-  border-color: rgba(255, 255, 255, 0.2);
+  background: var(--accent-light);
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
 .copy-btn:active { 
