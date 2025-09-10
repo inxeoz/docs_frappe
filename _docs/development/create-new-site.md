@@ -2,13 +2,6 @@
 title: Creating a New Site
 layout: default
 order: 4
-
-prev_page: /docs/03-installing-apps/
-prev_title: Installing Apps
-
-next_page: /docs/05-bench-console/
-next_title: Using Bench Console
-
 ---
 
 

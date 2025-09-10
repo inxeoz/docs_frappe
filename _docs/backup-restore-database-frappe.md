@@ -1,8 +1,6 @@
 ---
 title: How to Backup and Restore a Frappe/ERPNext Database Safely
-label: How to Backup and Restore a Frappe/ERPNext Database Safely
-slug: how-to-backup-and-restore-a-frappeerpnext-database-safely
-visibility: PUBLIC
+layout: default
 ---
 
 

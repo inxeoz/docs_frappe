@@ -2,13 +2,6 @@
 title: Using Bench Console
 layout: default
 order: 5
-
-prev_page: /docs/04-new-site/
-prev_title: Creating a New Site
-
-next_page: /docs/06-backup/
-next_title: Backing Up Data
-
 ---
 
 ## Open console

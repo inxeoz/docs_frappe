@@ -2,13 +2,6 @@
 title: Installing Apps
 layout: default
 order: 3
-
-prev_page: /docs/02-custom-app/
-prev_title: Creating a Custom Frappe App
-
-next_page: /docs/04-new-site/
-next_title: Creating a New Site
-
 ---
 
 

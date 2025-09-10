@@ -2,13 +2,6 @@
 title: Nginx Reverse Proxy for Frappe
 layout: default
 order: 8
-
-prev_page: /docs/07-restore/
-prev_title: Restoring Database
-
-next_page: /docs/09-set-config/
-next_title: set-config in frappe
-
 ---
 
 ## Install nginx

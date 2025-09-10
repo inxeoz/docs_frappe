@@ -6,13 +6,13 @@
 - title: Development
   items:
     - title: Creating a Custom Frappe App
-      url: /docs/02-custom-app/
+      url: /docs/development/create-custom-app
     - title: Installing Apps
-      url: /docs/03-installing-apps/
+      url: /docs/development/installing-apps
     - title: Creating a New Site
-      url: /docs/04-new-site/
+      url: /docs/development/create-new-site
     - title: Use set-config to enable developer_mode
-      url: /docs/09-set-config/
+      url: /docs/development/set-config
 - title: Bench Console
   items:
     - title: Using Bench Console

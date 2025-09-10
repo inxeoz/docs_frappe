@@ -2,13 +2,6 @@
 title: Kill Frappe Process
 layout: default
 order: 10
-
-prev_page: /docs/09-set-config/
-prev_title: set-config in frappe
-
-# next_page: 
-# next_title: 
-
 ---
 
 ## Use  kill & lsof command to terminate the frappe process

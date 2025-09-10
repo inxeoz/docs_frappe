@@ -1,0 +1,56 @@
+{%- comment -%}
+nav-pagination.html
+- Flattens site.data.navigation (in YAML order) into two parallel arrays:
+urls[]  and titles[]
+- Finds the current page URL in urls[] and exposes:
+prev_title, prev_url, next_title, next_url
+- Uses relative_url normalization to avoid / vs non-/ mismatches.
+{%- endcomment -%}
+
+{%- assign current = page.url | relative_url -%}
+
+{%- assign url_list = "" -%}
+{%- assign title_list = "" -%}
+
+{%- for section in site.data.navigation -%}
+{%- if section.items -%}
+{%- for item in section.items -%}
+{%- assign item_url = item.url | relative_url -%}
+{%- assign url_list = url_list | append: item_url | append: "||SEP||" -%}
+{%- assign title_list = title_list | append: item.title | append: "||SEP||" -%}
+{%- endfor -%}
+{%- endif -%}
+{%- endfor -%}
+
+{%- assign urls = url_list | split: "||SEP||" -%}
+{%- assign titles = title_list | split: "||SEP||" -%}
+
+{%- assign prev_title = "" -%}
+{%- assign prev_url = "" -%}
+{%- assign next_title = "" -%}
+{%- assign next_url = "" -%}
+
+{%- assign count = urls | size -%}
+
+{%- for u in urls -%}
+{%- if u == "" -%}
+{%- continue -%}
+{%- endif -%}
+
+{%- assign idx = forloop.index0 -%}
+{%- if u == current -%}
+{%- if idx > 0 -%}
+{%- assign prev_index = idx | minus: 1 -%}
+{%- assign prev_url = urls[prev_index] -%}
+{%- assign prev_title = titles[prev_index] -%}
+{%- endif -%}
+
+{%- assign next_index = idx | plus: 1 -%}
+{%- if next_index < count -%}
+{%- assign next_url = urls[next_index] -%}
+{%- assign next_title = titles[next_index] -%}
+{%- endif -%}
+
+{%- break -%}
+{%- endif -%}
+{%- endfor -%}

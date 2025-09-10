@@ -1,8 +1,6 @@
 ---
 title: Two Frappe Apps Simultaneously
-label: Two Frappe Apps Simultaneously
-slug: two-frappe-apps-simultaneously
-visibility: PUBLIC
+layout: default
 ---
 ## How to Run Two Frappe Apps Simultaneously: Different Methods Explained
 

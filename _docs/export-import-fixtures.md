@@ -2,12 +2,6 @@
 title: Export / Import Frappe
 layout: default
 order: 5
-
-prev_page: 
-prev_title:
-
-next_page:
-next_title: 
 ---
 
 

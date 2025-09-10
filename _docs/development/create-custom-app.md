@@ -2,11 +2,6 @@
 title: Creating a Custom Frappe App
 layout: default
 order: 2
-prev_page: /docs/01-installation/
-prev_title: Installation (Ubuntu)
-
-next_page: /docs/03-installing-apps/
-next_title: Installing Apps
 ---
 
 
