@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Responsive Design Testing Guide</title>
+        <title>Creating a New Site</title>
         <link
             rel="stylesheet"
             href="/assets/css/common.css"
@@ -67,7 +67,7 @@
 
         /* compute the indexes like the debug script */
         const browserPath = normPath(window.location.pathname + window.location.search + window.location.hash);
-        const liquidPageUrl = normPath("/assets/css/responsive-test.html");
+        const liquidPageUrl = normPath("/docs/development/create-new-site/");
 
         function getPrevNextForIndex(idx, urls, titles) {
             if (idx === -1 || idx === null || idx === undefined) return { prev: null, next: null, idx: -1 };
@@ -178,7 +178,7 @@
             </button>
 
             <div class="mobile-title">
-                Responsive Design Testing Guide
+                Creating a New Site
             </div>
 
             <button
@@ -288,7 +288,7 @@
                 
               
                 
-                  <li class="nav-item ">
+                  <li class="nav-item  active-parent">
                     <a href="/docs/development/create-new-site">Creating a New Site</a>
                   </li>
                 
@@ -414,157 +414,30 @@
 
             <main class="content">
                 <article class="doc-article">
-                    <h1>Responsive Design Testing Guide</h1>
+                    <h1>Creating a New Site</h1>
 
-                    <h1 id="responsive-design-testing-guide">Responsive Design Testing Guide</h1>
+                    <h2 id="create-new-site">Create New Site</h2>
 
-<h2 id="breakpoints-overview">Breakpoints Overview</h2>
+<p>this will ask for 
+MariaDB root password (password which You set during sudo mysql_secure_installation )
+Administrator password to set (which will be used for frappe desktop login)</p>
 
-<table>
-  <thead>
-    <tr>
-      <th>Device Category</th>
-      <th>Width Range</th>
-      <th>CSS Variables</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td>Mobile (Portrait)</td>
-      <td>320px - 640px</td>
-      <td><code class="language-plaintext highlighter-rouge">--breakpoint-sm: 640px</code></td>
-    </tr>
-    <tr>
-      <td>Mobile (Landscape) / Small Tablet</td>
-      <td>640px - 768px</td>
-      <td><code class="language-plaintext highlighter-rouge">--breakpoint-md: 768px</code></td>
-    </tr>
-    <tr>
-      <td>Tablet</td>
-      <td>768px - 1024px</td>
-      <td><code class="language-plaintext highlighter-rouge">--breakpoint-lg: 1024px</code></td>
-    </tr>
-    <tr>
-      <td>Desktop</td>
-      <td>1024px - 1280px</td>
-      <td><code class="language-plaintext highlighter-rouge">--breakpoint-xl: 1280px</code></td>
-    </tr>
-    <tr>
-      <td>Large Desktop</td>
-      <td>1280px+</td>
-      <td><code class="language-plaintext highlighter-rouge">--breakpoint-2xl: 1536px</code></td>
-    </tr>
-  </tbody>
-</table>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site msite.local
 
-<h2 id="key-responsive-features">Key Responsive Features</h2>
+</code></pre></div></div>
 
-<h3 id="1-sidebar-behavior">1. Sidebar Behavior</h3>
-<ul>
-  <li><strong>Desktop (&gt;900px)</strong>: Fixed sidebar, always visible</li>
-  <li><strong>Mobile (≤900px)</strong>: Overlay sidebar with backdrop blur</li>
-  <li><strong>Tablet</strong>: Contextual based on content needs</li>
-</ul>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(menv) ubuntu@ip-172-31-39-119:~/mbench$ bench new-site msite.local
+Enter mysql super user [root]:
+MySQL root password:
 
-<h3 id="2-typography-scaling">2. Typography Scaling</h3>
-<ul>
-  <li><strong>Fluid typography</strong>: Uses <code class="language-plaintext highlighter-rouge">clamp()</code> for responsive scaling</li>
-  <li><strong>Code blocks</strong>: Smaller font sizes on mobile</li>
-  <li><strong>Headings</strong>: Dynamic sizing based on viewport</li>
-</ul>
-
-<h3 id="3-navigation">3. Navigation</h3>
-<ul>
-  <li><strong>Desktop</strong>: Horizontal layout with hover effects</li>
-  <li><strong>Mobile</strong>: Stacked vertical layout</li>
-  <li><strong>Animations</strong>: Smooth transitions across all breakpoints</li>
-</ul>
-
-<h3 id="4-content-layout">4. Content Layout</h3>
-<ul>
-  <li><strong>Wide screens</strong>: Maximum content width with centered layout</li>
-  <li><strong>Medium screens</strong>: Reduced padding, optimized line length</li>
-  <li><strong>Mobile</strong>: Single column, increased line height</li>
-</ul>
-
-<h2 id="testing-checklist">Testing Checklist</h2>
-
-<h3 id="mobile-320px---640px">Mobile (320px - 640px)</h3>
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Sidebar opens/closes smoothly</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Navigation buttons stack vertically</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Code blocks remain readable</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Touch targets are ≥44px</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />No horizontal scroll</li>
-</ul>
-
-<h3 id="tablet-640px---1024px">Tablet (640px - 1024px)</h3>
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Sidebar behavior transitions properly</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Content remains readable</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Interactive elements are appropriately sized</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Images scale correctly</li>
-</ul>
-
-<h3 id="desktop-1024px">Desktop (1024px+)</h3>
-<ul class="task-list">
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Sidebar is always visible</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Hover states work correctly</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />Content doesn’t exceed max-width</li>
-  <li class="task-list-item"><input type="checkbox" class="task-list-item-checkbox" disabled="disabled" />All animations are smooth</li>
-</ul>
-
-<h2 id="performance-considerations">Performance Considerations</h2>
-
-<h3 id="critical-rendering-path">Critical Rendering Path</h3>
-<ol>
-  <li>Common CSS loads first (variables, resets)</li>
-  <li>Layout-specific CSS (sidebar, content)</li>
-  <li>Enhancement CSS (animations, effects)</li>
-</ol>
-
-<h3 id="progressive-enhancement">Progressive Enhancement</h3>
-<ul>
-  <li>Base functionality works without JavaScript</li>
-  <li>Animations respect <code class="language-plaintext highlighter-rouge">prefers-reduced-motion</code></li>
-  <li>Dark mode follows system preferences</li>
-  <li>High contrast mode supported</li>
-</ul>
-
-<h2 id="accessibility-features">Accessibility Features</h2>
-
-<h3 id="keyboard-navigation">Keyboard Navigation</h3>
-<ul>
-  <li>Tab order is logical</li>
-  <li>Focus indicators are visible</li>
-  <li>Skip links available</li>
-  <li>ARIA attributes properly set</li>
-</ul>
-
-<h3 id="screen-reader-support">Screen Reader Support</h3>
-<ul>
-  <li>Semantic HTML structure</li>
-  <li>Proper heading hierarchy</li>
-  <li>Alt text for images</li>
-  <li>Live regions for dynamic content</li>
-</ul>
-
-<h2 id="browser-support">Browser Support</h2>
-
-<h3 id="modern-features-progressive-enhancement">Modern Features (Progressive Enhancement)</h3>
-<ul>
-  <li>CSS Custom Properties (IE11+)</li>
-  <li>CSS Grid (Edge 16+, Safari 10.1+)</li>
-  <li>Backdrop Filter (Safari 9+, Chrome 76+)</li>
-  <li>Container Queries (Chrome 105+, Firefox 110+)</li>
-</ul>
-
-<h3 id="fallbacks">Fallbacks</h3>
-<ul>
-  <li>Flexbox for older browsers</li>
-  <li>Traditional positioning for IE</li>
-  <li>Basic animations for reduced motion</li>
-</ul>
+Installing frappe...
+Updating DocTypes for frappe        : [========================================] 100%
+Set Administrator password:
+Updating Dashboard for frappe
+msite.local: SystemSettings.enable_scheduler is UNSET
+*** Scheduler is disabled ***
+(menv) ubuntu@ip-172-31-39-119:~/mbench$
+</code></pre></div></div>
 
                 </article>
 
@@ -622,7 +495,7 @@
             const browserPath = normPath(browserPathRaw);
 
             /* Liquid-injected page.url */
-            const liquidPageUrlRaw = "/assets/css/responsive-test.html";
+            const liquidPageUrlRaw = "/docs/development/create-new-site/";
             const liquidPageUrl = normPath(liquidPageUrlRaw);
 
             /* Build JS arrays of nav urls & titles in the same order as Liquid produced them */
