@@ -1,45 +1,108 @@
 <!doctype html>
 <html lang="en">
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <title>Creating Your Own Blog with Jekyll on Manjaro i3</title>
+        <link
+            rel="stylesheet"
+            href="/assets/css/common.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/assets/css/sidebar.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/assets/css/content.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/assets/css/copy.css"
+        />
+        <link
+            rel="stylesheet"
+            href="/assets/css/nav-button.css"
+        />
+    </head>
 
-<head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>Creating Your Own Blog with Jekyll on Manjaro i3</title>
-  <link rel="stylesheet" href="/assets/css/common.css">
-  <link rel="stylesheet" href="/assets/css/sidebar.css">
-  <link rel="stylesheet" href="/assets/css/content.css">
-  <link rel="stylesheet" href="/assets/css/copy.css">
-  <link rel="stylesheet" href="/assets/css/nav-button.css">
+    <body>
+        <!-- Mobile header - only visible on small screens -->
+        <header class="mobile-header">
+            <button
+                id="mobile-sidebar-toggle"
+                class="mobile-hamburger"
+                aria-expanded="false"
+                aria-controls="site-sidebar"
+                aria-label="Toggle navigation menu"
+            >
+                <svg
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M3 12h18m-9-9h9m-9 18h9"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+            </button>
 
+            <div class="mobile-title">
+                Creating Your Own Blog with Jekyll on Manjaro i3
+            </div>
 
+            <button
+                id="mobile-theme-toggle"
+                class="mobile-theme-toggle"
+                aria-label="Toggle dark/light theme"
+                onclick="ToggleTheme()"
+            >
+                <svg
+                    class="theme-icon theme-icon-light"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <circle
+                        cx="12"
+                        cy="12"
+                        r="5"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    />
+                    <path
+                        d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    />
+                </svg>
+                <svg
+                    class="theme-icon theme-icon-dark"
+                    width="20"
+                    height="20"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    <path
+                        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
+                        stroke="currentColor"
+                        stroke-width="2"
+                    />
+                </svg>
+            </button>
+        </header>
 
-</head>
-
-<body>
-  <!-- Mobile header - only visible on small screens -->
-  <header class="mobile-header">
-    <button id="mobile-sidebar-toggle" class="mobile-hamburger" aria-expanded="false" aria-controls="site-sidebar" aria-label="Toggle navigation menu">
-      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M3 12h18m-9-9h9m-9 18h9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
-    </button>
-
-    <div class="mobile-title">Creating Your Own Blog with Jekyll on Manjaro i3</div>
-
-    <button id="mobile-theme-toggle" class="mobile-theme-toggle" aria-label="Toggle dark/light theme" onclick="ToggleTheme()">
-      <svg class="theme-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/>
-        <path d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2"/>
-      </svg>
-      <svg class="theme-icon theme-icon-dark" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/>
-      </svg>
-    </button>
-
-  </header>
-
-  <div class="page-wrap">
-    <!-- _includes/sidebar.html -->
+        <div class="page-wrap">
+            <!-- _includes/sidebar.html -->
 <nav id="site-sidebar" class="sidebar" aria-label="Sidebar navigation">
   <div class="sidebar-inner">
     <!-- Mobile close button - visible only when sidebar is open -->
@@ -224,11 +287,11 @@
   </div>
 </nav>
 
-    <main class="content">
-      <article class="doc-article">
-        <h1>Creating Your Own Blog with Jekyll on Manjaro i3</h1>
+            <main class="content">
+                <article class="doc-article">
+                    <h1>Creating Your Own Blog with Jekyll on Manjaro i3</h1>
 
-        <h1 id="creating-your-own-blog-with-jekyll-on-manjaro-i3">Creating Your Own Blog with Jekyll on Manjaro i3</h1>
+                    <h1 id="creating-your-own-blog-with-jekyll-on-manjaro-i3">Creating Your Own Blog with Jekyll on Manjaro i3</h1>
 
 <h2 id="table-of-contents">Table of Contents</h2>
 <ol>
@@ -906,22 +969,19 @@ notify-send <span class="s2">"Blog Environment"</span> <span class="s2">"Jekyll 
   <li><a href="https://i3wm.org/docs/userguide.html">i3 User’s Guide</a></li>
 </ul>
 
-      </article>
+                </article>
 
-      
-
-
-
-    </main>
-  </div>
-  <script src="/assets/js/copy-code.js"></script>
-  <script src="/assets/js/sidebar.js"></script>
-  <script src="/assets/js/content-toc.js"></script>
-  <script src="/assets/js/modern-features.js"></script>
-  <script src="/assets/js/theme.js" defer></script>
-
-
-
-</body>
-
+                
+            </main>
+        </div>
+        <script src="/assets/js/copy-code.js"></script>
+        <script src="/assets/js/sidebar.js"></script>
+        <script src="/assets/js/content-toc.js"></script>
+        <script src="/assets/js/modern-features.js"></script>
+        <script src="/assets/js/theme.js" defer></script>
+        <script
+            src="/assets/js/img-overlay.js"
+            defer
+        ></script>
+    </body>
 </html>
