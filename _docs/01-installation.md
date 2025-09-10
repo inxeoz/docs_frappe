@@ -106,12 +106,102 @@ cd mbench
 ```
 
 ## Step 7 - Create New Site
+this will ask for 
+MariaDB root password (password which You set during sudo mysql_secure_installation )
+Administrator password to set (which will be used for frappe desktop login)
 
-- [Creating a New Site](/docs/04-new-site/)
+
+```
+bench new-site msite.local
+
+```
+
+```
+(menv) ubuntu@ip-172-31-39-119:~/mbench$ bench new-site msite.local
+Enter mysql super user [root]:
+MySQL root password:
+
+Installing frappe...
+Updating DocTypes for frappe        : [========================================] 100%
+Set Administrator password:
+Updating Dashboard for frappe
+msite.local: SystemSettings.enable_scheduler is UNSET
+*** Scheduler is disabled ***
+(menv) ubuntu@ip-172-31-39-119:~/mbench$
+```
 
 
-## Step 7 - Use New Site
+
+## Step 8 - Use New Site
 
 ```bash
 bench use msite.local
 ```
+
+
+## Step 9 - Build And Start Server
+
+```bash
+bench build
+bench start
+```
+Here is the Command and Their execution output
+
+```
+[inxeoz@manjaro-i3 | prob | 04:11:59 PM]$ bench build
+-------------------------------------------------------------
+Assets for Commit c6032ebdb9c0b427d0e9234cc38e806ebff4dbb0 don't exist
+✔ Application Assets Linked
+
+
+yarn run v1.22.22
+warning ../../../../package.json: No license field
+$ node esbuild --production --run-build-command
+Browserslist: caniuse-lite is outdated. Please run:
+------------------------------------------------------------------
+frappe/dist/js/
+├─ billing.bundle.QQE2RPCA.js                               4.44 Kb
+├─ bootstrap-4-web.bundle.FOZOVELL.js                       1.73 Kb
+├─ calendar.bundle.4A4YITIU.js                              264.60 Kb
+├─ controls.bundle.ABXYTQCU.js                              883.38 Kb
+├─ data_import_tools.bundle.44FYB4HH.js                     129.08 Kb
+├─ desk.bundle.XFDCSUZ4.js                                  1113.95 Kb
+├─ dialog.bundle.JOPO3YHJ.js                                58.82 Kb
+
+ DONE  Total Build Time: 7.037s
+-------------------------------------------------------------------
+ WARN  Cannot connect to redis_cache to update assets_json
+Done in 7.57s.
+Compiling translations for frappe
+MO file already up to date at /home/inxeoz/proj/prob/sites/assets/locale/af/LC_MESSAGES/frappe.mo
+MO file already up to date at /home/inxeoz/proj/prob/sites/assets/locale/ar/LC_MESSAGES/frappe.mo
+MO file already up to date at /home/inxeoz/proj/prob/sites/assets/locale/fi/LC_MESSAGES/frappe.mo
+--------------------------------------------------------
+Compiling translations for itsupport_frappe
+Compiling translations for cerp
+Compiling translations for mapit
+Compiling translations for erpnext
+Compiling translations for digipass
+Compiling translations for wiki
+--------------------------------------------------------------------
+```
+
+
+
+
+```bash
+[inxeoz@manjaro-i3 | prob | 04:11:44 PM]$ bench start
+-----------------------------------------------------------
+16:11:46 socketio.1    | Realtime service listening on:  9000
+16:11:47 watch.1       |
+16:11:47 watch.1       | yarn run v1.22.22
+16:11:47 watch.1       | warning ../../../../package.json: No license field
+16:11:47 watch.1       | $ node esbuild --watch --live-reload
+16:11:47 web.1         | WARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.
+16:11:47 web.1         |  * Running on all addresses (0.0.0.0)
+16:11:47 web.1         |  * Running on http://127.0.0.1:8000
+16:11:47 web.1         |  * Running on http://10.120.10.9:8000
+16:11:47 web.1         | Press CTRL+C to quit
+-------------------------------------------------------------
+```
+`Visit  http://127.0.0.1:8000 in browser`

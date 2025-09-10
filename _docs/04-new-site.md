@@ -37,11 +37,3 @@ msite.local: SystemSettings.enable_scheduler is UNSET
 *** Scheduler is disabled ***
 (menv) ubuntu@ip-172-31-39-119:~/mbench$
 ```
-
-
-
-## Use a site
-```bash
-bench use msite.local
-```
-

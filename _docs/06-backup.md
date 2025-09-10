@@ -26,9 +26,8 @@ sites/mysite.localhost/private/backups
 bench --site mysite.localhost backup --with-files=false
 ```
 
-<span style="font-size: 17px;">
+
 <span style="color:orange">
 --with-files=false</span> → a flag that controls whether uploaded files (attachments, images, etc.) are included.<br>
 true (default) → database + public/private files are backed up.<br>
 false → only the database is backed up, without the files.
-</span>

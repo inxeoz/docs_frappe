@@ -13,6 +13,9 @@ next_title: Backing Up Data
 
 
 ----------
+![Doctype Settings](/assets/images/doctype-settings.png "DocType Page When Clicked Naming Section in Doctype Customization Page ")
+
+----------
 
 ### Required Fields:
 
