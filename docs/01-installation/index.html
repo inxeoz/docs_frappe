@@ -374,15 +374,92 @@ cd mbench
 </code></pre></div></div>
 
 <h2 id="step-7---create-new-site">Step 7 - Create New Site</h2>
+<p>this will ask for 
+MariaDB root password (password which You set during sudo mysql_secure_installation )
+Administrator password to set (which will be used for frappe desktop login)</p>
 
-<ul>
-  <li><a href="/docs/04-new-site/">Creating a New Site</a></li>
-</ul>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site msite.local
 
-<h2 id="step-7---use-new-site">Step 7 - Use New Site</h2>
+</code></pre></div></div>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>(menv) ubuntu@ip-172-31-39-119:~/mbench$ bench new-site msite.local
+Enter mysql super user [root]:
+MySQL root password:
+
+Installing frappe...
+Updating DocTypes for frappe        : [========================================] 100%
+Set Administrator password:
+Updating Dashboard for frappe
+msite.local: SystemSettings.enable_scheduler is UNSET
+*** Scheduler is disabled ***
+(menv) ubuntu@ip-172-31-39-119:~/mbench$
+</code></pre></div></div>
+
+<h2 id="step-8---use-new-site">Step 8 - Use New Site</h2>
 
 <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench use msite.local
 </code></pre></div></div>
+
+<h2 id="step-9---build-and-start-server">Step 9 - Build And Start Server</h2>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench build
+bench start
+</code></pre></div></div>
+<p>Here is the Command and Their execution output</p>
+
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>[inxeoz@manjaro-i3 | prob | 04:11:59 PM]$ bench build
+-------------------------------------------------------------
+Assets for Commit c6032ebdb9c0b427d0e9234cc38e806ebff4dbb0 don't exist
+✔ Application Assets Linked
+
+
+yarn run v1.22.22
+warning ../../../../package.json: No license field
+$ node esbuild --production --run-build-command
+Browserslist: caniuse-lite is outdated. Please run:
+------------------------------------------------------------------
+frappe/dist/js/
+├─ billing.bundle.QQE2RPCA.js                               4.44 Kb
+├─ bootstrap-4-web.bundle.FOZOVELL.js                       1.73 Kb
+├─ calendar.bundle.4A4YITIU.js                              264.60 Kb
+├─ controls.bundle.ABXYTQCU.js                              883.38 Kb
+├─ data_import_tools.bundle.44FYB4HH.js                     129.08 Kb
+├─ desk.bundle.XFDCSUZ4.js                                  1113.95 Kb
+├─ dialog.bundle.JOPO3YHJ.js                                58.82 Kb
+
+ DONE  Total Build Time: 7.037s
+-------------------------------------------------------------------
+ WARN  Cannot connect to redis_cache to update assets_json
+Done in 7.57s.
+Compiling translations for frappe
+MO file already up to date at /home/inxeoz/proj/prob/sites/assets/locale/af/LC_MESSAGES/frappe.mo
+MO file already up to date at /home/inxeoz/proj/prob/sites/assets/locale/ar/LC_MESSAGES/frappe.mo
+MO file already up to date at /home/inxeoz/proj/prob/sites/assets/locale/fi/LC_MESSAGES/frappe.mo
+--------------------------------------------------------
+Compiling translations for itsupport_frappe
+Compiling translations for cerp
+Compiling translations for mapit
+Compiling translations for erpnext
+Compiling translations for digipass
+Compiling translations for wiki
+--------------------------------------------------------------------
+</code></pre></div></div>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="o">[</span>inxeoz@manjaro-i3 | prob | 04:11:44 PM]<span class="nv">$ </span>bench start
+<span class="nt">-----------------------------------------------------------</span>
+16:11:46 socketio.1    | Realtime service listening on:  9000
+16:11:47 watch.1       |
+16:11:47 watch.1       | yarn run v1.22.22
+16:11:47 watch.1       | warning ../../../../package.json: No license field
+16:11:47 watch.1       | <span class="nv">$ </span>node esbuild <span class="nt">--watch</span> <span class="nt">--live-reload</span>
+16:11:47 web.1         | WARNING: This is a development server. Do not use it <span class="k">in </span>a production deployment. Use a production WSGI server instead.
+16:11:47 web.1         |  <span class="k">*</span> Running on all addresses <span class="o">(</span>0.0.0.0<span class="o">)</span>
+16:11:47 web.1         |  <span class="k">*</span> Running on http://127.0.0.1:8000
+16:11:47 web.1         |  <span class="k">*</span> Running on http://10.120.10.9:8000
+16:11:47 web.1         | Press CTRL+C to quit
+<span class="nt">-------------------------------------------------------------</span>
+</code></pre></div></div>
+<p><code class="language-plaintext highlighter-rouge">Visit  http://127.0.0.1:8000 in browser</code></p>
 
                 </article>
 

@@ -1,0 +1,181 @@
+<h2 id="how-to-run-two-frappe-apps-simultaneously-different-methods-explained">How to Run Two Frappe Apps Simultaneously: Different Methods Explained</h2>
+
+<p>The Frappe framework, via the <strong>Bench</strong> tool, is built for modular, multi-app, and multi-site scenarios. There are several ways to run two (or more) Frappe apps on a single system—each method serving different use cases, levels of isolation, and operational complexity.</p>
+
+<h2 id="1-multi-site-single-bench-recommended-and-most-common">1. <strong>Multi-Site, Single Bench (Recommended and Most Common)</strong></h2>
+
+<p><strong>Overview:</strong><br />
+Run both apps inside the same bench folder, installing each app on a different site. This leverages Frappe’s built-in multi-tenancy support and lets you host and run any number of apps across any number of sites at the same time.</p>
+
+<p><strong>Steps:</strong></p>
+
+<ul>
+  <li>
+    <p>Create a bench:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench init my-bench
+<span class="nb">cd </span>my-bench
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Add both apps:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench get-app app_a <span class="o">[</span>repo-url-A]
+bench get-app app_b <span class="o">[</span>repo-url-B]
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Create two (or more) sites:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site sitea.local
+bench new-site siteb.local
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Install each app on its respective site:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> sitea.local install-app app_a
+bench <span class="nt">--site</span> siteb.local install-app app_b
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Enable DNS multitenancy and configure <code class="language-plaintext highlighter-rouge">/etc/hosts</code>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench config dns_multitenant on
+</code></pre></div>    </div>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>text127.0.0.1 sitea.local
+127.0.0.1 siteb.local
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Start bench:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench start
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Access both apps at <code class="language-plaintext highlighter-rouge">http://sitea.local:8000</code> and <code class="language-plaintext highlighter-rouge">http://siteb.local:8000</code> in your browser.</p>
+  </li>
+</ul>
+
+<p><strong>Benefits:</strong><br />
+Fast development, minimal resource overhead, each site can have its own app stack—<a target="_blank" href="https://discuss.frappe.io/t/how-to-run-two-sites-simultaneously-in-development-environment/55565">5</a><a target="_blank" href="https://discuss.frappe.io/t/want-to-run-two-projects-at-the-same-time/107617">3</a><a target="_blank" href="https://discuss.frappe.io/t/is-it-possible-to-run-multiple-sites-simultaneously/15274">2</a><a target="_blank" href="https://discuss.frappe.io/t/how-to-setup-multiple-sites-on-single-bench-instance/129147">4</a>.</p>
+
+<h2 id="2-port-based-multi-site--multi-app">2. <strong>Port-Based Multi-Site / Multi-App</strong></h2>
+
+<p><strong>Overview:</strong><br />
+Instead of using different domains, assign different ports to each site so you can access, for example, <code class="language-plaintext highlighter-rouge">http://localhost:8001</code> and <code class="language-plaintext highlighter-rouge">http://localhost:8002</code>.</p>
+
+<p><strong>Method:</strong></p>
+
+<ul>
+  <li>
+    <p>Turn <strong>DNS multi-tenancy OFF</strong>:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench config dns_multitenant off
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Assign a port per site:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench set-nginx-port sitea.local 8001
+bench set-nginx-port siteb.local 8002
+bench setup nginx
+<span class="nb">sudo </span>systemctl reload nginx   <span class="c"># or 'sudo service nginx reload' on non-Arch systems</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Then access <code class="language-plaintext highlighter-rouge">http://localhost:8001</code> and <code class="language-plaintext highlighter-rouge">http://localhost:8002</code>.</p>
+  </li>
+</ul>
+
+<p><strong>Benefits:</strong><br />
+Direct, domain-free access; suitable for quick testing or when DNS/domain setup is impractical.</p>
+
+<p><strong>Challenges:</strong><br />
+Prone to port conflicts, less flexible, can require more manual tweaking, and some users have reported display issues on second port/site<a target="_blank" href="https://discuss.frappe.io/t/is-it-possible-to-run-multiple-sites-simultaneously/15274">2</a><a target="_blank" href="https://discuss.frappe.io/t/want-to-run-two-projects-at-the-same-time/107617">3</a>.</p>
+
+<h2 id="3-multi-bench-multi-app">3. <strong>Multi-Bench, Multi-App</strong></h2>
+
+<p><strong>Overview:</strong><br />
+Run each app in a completely separate bench instance (folder/environment), which is useful when you need strict isolation (e.g., different Frappe or Python versions, or divergent dependencies).</p>
+
+<p><strong>Method:</strong></p>
+
+<ul>
+  <li>
+    <p>Create two separate benches:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench init bench_a
+bench init bench_b
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Set up separate virtual environments; install respective apps and sites as above.</p>
+  </li>
+  <li>
+    <p>Start both benches (the development server will attempt to use a free port for each).</p>
+  </li>
+</ul>
+
+<p><strong>Benefits:</strong><br />
+Maximum isolation, no risk of version or dependency clashes.</p>
+
+<p><strong>Costs:</strong><br />
+Requires more resources; each bench is heavyweight, best for advanced or conflicting setups.</p>
+
+<h2 id="4-multiple-frappe-instances-experimental">4. <strong>Multiple Frappe Instances (Experimental)</strong></h2>
+
+<p><strong>Tools like</strong> <a target="_blank" href="https://discuss.frappe.io/t/frappe-manager-v0-10-enable-multiple-frappe-instances-simultaneously/117214"><strong>Frappe-Manager v0.10+</strong></a> <strong>are being developed</strong> to make managing multiple Frappe “instances” or environments easier, each potentially with its own set of benches and apps. This is still less common but is gaining interest for larger multi-instance deployments<a target="_blank" href="https://discuss.frappe.io/t/frappe-manager-v0-10-enable-multiple-frappe-instances-simultaneously/117214">7</a>.</p>
+
+<h2 id="advanced-both-apps-on-a-single-site">Advanced: Both Apps on a Single Site</h2>
+
+<p>You can also <strong>install both apps on the same Frappe site</strong> (using <code class="language-plaintext highlighter-rouge">bench --site &lt;sitename&gt; install-app &lt;appname&gt;</code> for both applications). They will “coexist” on the same database and site. Use this when the apps are tightly coupled or meant to extend a single system, but note that version or namespace conflicts can arise.</p>
+
+<h2 id="key-considerations">Key Considerations</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>Method</th>
+      <th>Isolation</th>
+      <th>Setup Complexity</th>
+      <th>Best For</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Single Bench, Multi-Site (DNS)</td>
+      <td>Medium</td>
+      <td>Easy</td>
+      <td>Most dev/production and standard needs</td>
+    </tr>
+    <tr>
+      <td>Single Bench, Port-Based Multi-Site</td>
+      <td>Medium</td>
+      <td>Moderate</td>
+      <td>Quick tests, restricted DNS environments</td>
+    </tr>
+    <tr>
+      <td>Multi Bench</td>
+      <td>High</td>
+      <td>Advanced</td>
+      <td>Strict isolation, conflicting dependencies</td>
+    </tr>
+    <tr>
+      <td>Frappe Manager</td>
+      <td>Very High</td>
+      <td>Experimental</td>
+      <td>Multi-customer, multi-stack deployments</td>
+    </tr>
+    <tr>
+      <td>Multiple Apps, Single Site</td>
+      <td>Low</td>
+      <td>Easiest</td>
+      <td>Tight app coupling, plugin-like extensions</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>##</p>

@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>DocType</title>
+        <title>Export / Import Frappe</title>
         <link
             rel="stylesheet"
             href="/assets/css/common.css"
@@ -54,7 +54,7 @@
             </button>
 
             <div class="mobile-title">
-                DocType
+                Export / Import Frappe
             </div>
 
             <button
@@ -262,7 +262,7 @@
             <ul class="section-items">
               
                 
-                  <li class="nav-item  active">
+                  <li class="nav-item ">
                     <a href="/docs/11-doctype/">DocType Default Paramters</a>
                   </li>
                 
@@ -289,205 +289,191 @@
 
             <main class="content">
                 <article class="doc-article">
-                    <h1>DocType</h1>
+                    <h1>Export / Import Frappe</h1>
 
-                    <hr />
-<p><img src="/assets/images/doctype-settings.png" alt="Doctype Settings" title="DocType Page When Clicked Naming Section in Doctype Customization Page " /></p>
+                    <h1 id="export--import-frappe">Export / Import Frappe</h1>
 
 <hr />
 
-<h3 id="required-fields">Required Fields:</h3>
+<h2 id="1-exporting-customizations--schema">1. Exporting Customizations &amp; Schema</h2>
+
+<h3 id="enable-developer-mode">Enable Developer Mode</h3>
+
+<p>Set <code class="language-plaintext highlighter-rouge">developer_mode = 1</code> in your <code class="language-plaintext highlighter-rouge">site_config.json</code>.
+This ensures DocTypes and customizations are stored as JSON files inside your app directory.
+👉 <a href="https://docs.frappe.io/framework/user/en/database-migrations">Database Migrations</a> | <a href="https://docs.frappe.io/framework/user/en/guides/deployment/migrations">Deployment Migrations</a></p>
+
+<hr />
+
+<h3 id="export-customizations">Export Customizations</h3>
 
 <ol>
-  <li>
-    <p><strong>Name</strong>*</p>
-
-    <ul>
-      <li>
-        <p>The name of your new DocType (e.g., <code class="language-plaintext highlighter-rouge">Invoice</code>, <code class="language-plaintext highlighter-rouge">Student</code>, <code class="language-plaintext highlighter-rouge">Task</code>).</p>
-      </li>
-      <li>
-        <p>It becomes the table name internally (e.g., <code class="language-plaintext highlighter-rouge">tabInvoice</code>).</p>
-      </li>
-    </ul>
-  </li>
-  <li>
-    <p><strong>Module</strong>*</p>
-
-    <ul>
-      <li>
-        <p>The Frappe app/module where this DocType will belong (e.g., <code class="language-plaintext highlighter-rouge">Accounts</code>, <code class="language-plaintext highlighter-rouge">Education</code>, <code class="language-plaintext highlighter-rouge">CRM</code>).</p>
-      </li>
-      <li>
-        <p>Helps organize and group related DocTypes.</p>
-      </li>
-    </ul>
-  </li>
+  <li>In your site, open <strong>Customize Form</strong>.</li>
+  <li>Click <strong>Export Customizations</strong> → select your app’s module → export.</li>
 </ol>
+
+<p>This saves custom fields and settings as JSON files inside your app.
+👉 <a href="https://docs.frappe.io/framework/user/en/guides/app-development/exporting-customizations">Exporting Customizations</a></p>
 
 <hr />
 
-<h3 id="options--checkboxes">Options / Checkboxes:</h3>
+<h3 id="export-fixtures-optional">Export Fixtures (Optional)</h3>
 
-<ol>
-  <li>
-    <p><strong>Is Submittable</strong></p>
+<p>For custom DocTypes such as <strong>Custom Field</strong> or <strong>Workflow</strong>, define them in <code class="language-plaintext highlighter-rouge">hooks.py</code>:</p>
 
-    <ul>
-      <li>
-        <p>Makes the DocType a <em>transactional document</em> that can be “Submitted”.</p>
-      </li>
-      <li>
-        <p>Once submitted, it <strong>cannot be edited</strong>; only canceled or amended (like a Sales Invoice, Purchase Order).</p>
-      </li>
-      <li>
-        <p>Useful for approval workflows.</p>
-      </li>
-    </ul>
-  </li>
-</ol>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">fixtures</span> <span class="o">=</span> <span class="p">[</span><span class="s">"Custom Field"</span><span class="p">,</span> <span class="s">"Workflow"</span><span class="p">]</span>
+</code></pre></div></div>
+
+<p>Run:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> <span class="o">[</span>site-name] export-fixtures
+</code></pre></div></div>
+
+<p>This generates JSON files in your app’s <code class="language-plaintext highlighter-rouge">/fixtures</code> directory.</p>
 
 <hr />
 
-<ol>
-  <li>
-    <p><strong>Is Child Table</strong></p>
+<h2 id="2-exporting-data">2. Exporting Data</h2>
 
-    <ul>
-      <li>
-        <p>Makes this DocType a <strong>child/line table</strong> inside another DocType.</p>
-      </li>
-      <li>
-        <p>Example: <em>Items table</em> inside <em>Sales Invoice</em>.</p>
-      </li>
-      <li>
-        <p>It will appear as a <strong>grid</strong> in the parent DocType.</p>
-      </li>
-    </ul>
-  </li>
-</ol>
-
-<hr />
-
-<ol>
-  <li>
-    <p><strong>Is Single</strong></p>
-
-    <ul>
-      <li>
-        <p>The DocType will have only <strong>one record ever</strong> (no list view).</p>
-      </li>
-      <li>
-        <p>Data is stored in <code class="language-plaintext highlighter-rouge">tabSingles</code>.</p>
-      </li>
-      <li>
-        <p>Example: <em>Global Defaults</em>, <em>System Settings</em>.</p>
-      </li>
-      <li>
-        <p>Used for storing configuration/settings.</p>
-      </li>
-    </ul>
-  </li>
-</ol>
-
-<hr />
-
-<ol>
-  <li>
-    <p><strong>Is Tree</strong></p>
-
-    <ul>
-      <li>
-        <p>Allows the DocType to have a <strong>hierarchical/tree structure</strong> using Nested Sets.</p>
-      </li>
-      <li>
-        <p>Example: <em>Chart of Accounts</em>, <em>Item Groups</em>, <em>Departments</em>.</p>
-      </li>
-      <li>
-        <p>Useful when records have parent-child relationships.</p>
-      </li>
-    </ul>
-  </li>
-</ol>
-
-<hr />
-
-<ol>
-  <li>
-    <p><strong>Custom?</strong></p>
-
-    <ul>
-      <li>
-        <p>Indicates if this DocType is <strong>custom-created</strong> by the user, not part of the core app.</p>
-      </li>
-      <li>
-        <p>Checked automatically when you create a new DocType through the UI.</p>
-      </li>
-    </ul>
-  </li>
-</ol>
-
-<hr />
-
-<ol>
-  <li>
-    <p><strong>Is Virtual</strong></p>
-
-    <ul>
-      <li>
-        <p>A <strong>non-database DocType</strong> (no physical table is created).</p>
-      </li>
-      <li>
-        <p>Useful when you want to represent external/derived data (e.g., API-based data, reports).</p>
-      </li>
-      <li>
-        <p>Used for advanced customizations.</p>
-      </li>
-    </ul>
-  </li>
-</ol>
-
-<hr />
-
-<p>👉 In short:</p>
+<h3 id="using-data-export-tool">Using Data Export Tool</h3>
 
 <ul>
+  <li>Go to the list view of the DocType.</li>
+  <li>Click <strong>Menu &gt; Data Export</strong>.</li>
+  <li>Filter/select fields → Export as CSV.</li>
+</ul>
+
+<hr />
+
+<h3 id="using-bench-backup">Using Bench Backup</h3>
+
+<p>For larger migrations:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> <span class="o">[</span>site-name] backup
+</code></pre></div></div>
+
+<p>This creates:</p>
+
+<ul>
+  <li><code class="language-plaintext highlighter-rouge">database.sql.gz</code> (DB backup)</li>
+  <li><code class="language-plaintext highlighter-rouge">files</code> and <code class="language-plaintext highlighter-rouge">private</code> directories</li>
+</ul>
+
+<p>Backups are stored in:
+<code class="language-plaintext highlighter-rouge">sites/[site-name]/private/backups</code>
+👉 <a href="https://discuss.frappe.io/t/data-migration-from-one-personal-frappe-to-another-personal-frappe-is-it-possible/124723">Data Migration Discussion</a></p>
+
+<hr />
+
+<h2 id="3-migrating-the-app-to-another-instance">3. Migrating the App to Another Instance</h2>
+
+<h3 id="move-app-code">Move App Code</h3>
+
+<p>Copy your app directory into the new instance’s <code class="language-plaintext highlighter-rouge">apps/</code>.</p>
+
+<h3 id="install-the-app">Install the App</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> <span class="o">[</span>new-site-name] install-app your_app
+</code></pre></div></div>
+
+<h3 id="sync-schema">Sync Schema</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> <span class="o">[</span>new-site-name] migrate
+</code></pre></div></div>
+
+<p>This updates DB tables and syncs DocTypes.
+👉 <a href="https://docs.frappe.io/framework/user/en/bench/reference/migrate">Migrate Command</a></p>
+
+<hr />
+
+<h2 id="4-importing--restoring-data">4. Importing / Restoring Data</h2>
+
+<h3 id="import-csv">Import CSV</h3>
+
+<ul>
+  <li>Use <strong>Data Import Tool</strong>.</li>
+  <li>Upload CSV → map fields → import.</li>
+</ul>
+
+<hr />
+
+<h3 id="restore-database">Restore Database</h3>
+
+<p>If migrating the whole site:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> <span class="o">[</span>new-site-name] restore /path/to/backup.sql.gz
+</code></pre></div></div>
+
+<p>⚠️ Ensure all required apps are installed <strong>before</strong> restoring.</p>
+
+<hr />
+
+<h2 id="5-advanced--cloud-migration">5. Advanced / Cloud Migration</h2>
+
+<p>Frappe Cloud provides tools like <code class="language-plaintext highlighter-rouge">bench migrate-to</code> or their CLI to move sites between local and cloud environments.
+👉 <a href="https://docs.frappe.io/cloud/sites/migrate-an-existing-site">Migrate Existing Site (Cloud)</a></p>
+
+<hr />
+
+<h2 id="notes--best-practices">Notes &amp; Best Practices</h2>
+
+<ul>
+  <li>Always <strong>move DocTypes and code first</strong>. Data imports will fail if DocTypes are missing.</li>
+  <li>Schema migrations are <strong>not reversible</strong>. Test in staging before applying to production.</li>
+  <li>For external systems, use the <a href="https://docs.frappe.io/framework/user/en/guides/data/using-data-migration-tool">Data Migration Tool</a>.</li>
   <li>
-    <p><strong>Submittable</strong> → For transactional docs.</p>
-  </li>
-  <li>
-    <p><strong>Child Table</strong> → For nested tables inside other docs.</p>
-  </li>
-  <li>
-    <p><strong>Single</strong> → For settings/config docs (one record only).</p>
-  </li>
-  <li>
-    <p><strong>Tree</strong> → For hierarchical structures.</p>
-  </li>
-  <li>
-    <p><strong>Custom</strong> → Marks it as a custom DocType.</p>
-  </li>
-  <li>
-    <p><strong>Virtual</strong> → No DB table, used for computed or external data.</p>
+    <p>After migration, always run:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> <span class="o">[</span>site-name] migrate
+</code></pre></div>    </div>
   </li>
 </ul>
 
 <hr />
 
+<h2 id="summary-table">Summary Table</h2>
+
+<table>
+  <thead>
+    <tr>
+      <th>What to Move</th>
+      <th>How to Export</th>
+      <th>How to Import / Restore</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>App code &amp; DocTypes</td>
+      <td>Copy app dir, Export Customizations</td>
+      <td>Install app → <code class="language-plaintext highlighter-rouge">migrate</code></td>
+    </tr>
+    <tr>
+      <td>Custom fields/workflow</td>
+      <td>Export Fixtures / Customizations</td>
+      <td>Install app → <code class="language-plaintext highlighter-rouge">migrate</code></td>
+    </tr>
+    <tr>
+      <td>Data (bulk / multi-type)</td>
+      <td><code class="language-plaintext highlighter-rouge">bench backup</code></td>
+      <td><code class="language-plaintext highlighter-rouge">bench restore</code></td>
+    </tr>
+    <tr>
+      <td>Data (single DocType)</td>
+      <td>Data Export (CSV)</td>
+      <td>Data Import Tool</td>
+    </tr>
+    <tr>
+      <td>External integrations</td>
+      <td>Data Migration Tool</td>
+      <td>Data Migration Tool</td>
+    </tr>
+  </tbody>
+</table>
+
+<hr />
+
                 </article>
 
-                
-                <div class="docs-nav">
-                    
-                    <a class="btn-prev" href="/docs/04-new-site/"
-                        >➡️ Prev: Creating a New Site</a
-                    >
-                     
-                    <a class="btn-next" href="/docs/06-backup/"
-                        >➡️ Next: Backing Up Data</a
-                    >
-                    
-                </div>
                 
             </main>
         </div>

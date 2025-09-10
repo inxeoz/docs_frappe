@@ -1,0 +1,118 @@
+<h2 id="-1-creating-a-backup">🔹 1. Creating a Backup</h2>
+
+<p>Frappe provides a built-in command to generate backups. Run this from your bench folder:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> yoursite.local backup
+</code></pre></div></div>
+
+<p>This creates three files under <code class="language-plaintext highlighter-rouge">sites/yoursite.local/private/backups/</code>:</p>
+
+<ul>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">dbname-database.sql.gz</code> → compressed SQL dump of your MariaDB database</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">dbname-files.tar</code> → archive of public files (uploaded files visible on website)</p>
+  </li>
+  <li>
+    <p><code class="language-plaintext highlighter-rouge">dbname-private-files.tar</code> → archive of private files (restricted uploads)</p>
+  </li>
+</ul>
+
+<p>👉 These files are timestamped for easy identification.</p>
+
+<hr />
+
+<h2 id="-2-restoring-into-a-new-site">🔹 2. Restoring Into a New Site</h2>
+
+<p>Suppose you want to restore this backup into a <strong>new site</strong> because your current one broke or you’re testing migration.</p>
+
+<h3 id="step-1-create-a-new-site">Step 1: Create a new site</h3>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench new-site newsite.local
+</code></pre></div></div>
+
+<p>This initializes a fresh database, user, and configuration.</p>
+
+<hr />
+
+<h3 id="step-2-restore-the-database-dump">Step 2: Restore the database dump</h3>
+
+<p>Decompress and load the SQL dump into the new site’s database.</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">gunzip </span>dbname-database.sql.gz
+mysql <span class="nt">-u</span> root <span class="nt">-p</span> new_dbname &lt; dbname-database.sql
+</code></pre></div></div>
+
+<p>⚠️ <code class="language-plaintext highlighter-rouge">new_dbname</code> comes from <code class="language-plaintext highlighter-rouge">sites/newsite.local/site_config.json</code> under <code class="language-plaintext highlighter-rouge">"db_name"</code>.</p>
+
+<hr />
+
+<h3 id="step-3-sync-schema-and-patches">Step 3: Sync schema and patches</h3>
+
+<p>Run migrations so Frappe aligns doctypes and applies missing patches:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> newsite.local migrate
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="step-4-restore-files">Step 4: Restore files</h3>
+
+<p>If you also want uploaded files restored:</p>
+
+<div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="nb">tar</span> <span class="nt">-xvf</span> dbname-files.tar <span class="nt">-C</span> sites/newsite.local/public/files/
+<span class="nb">tar</span> <span class="nt">-xvf</span> dbname-private-files.tar <span class="nt">-C</span> sites/newsite.local/private/files/
+</code></pre></div></div>
+
+<hr />
+
+<h3 id="step-5-restore-site-config-optional">Step 5: Restore site config (optional)</h3>
+
+<p>If your old backup had a specific encryption key or special settings, copy them into <code class="language-plaintext highlighter-rouge">sites/newsite.local/site_config.json</code>.</p>
+
+<p>At minimum, ensure the <code class="language-plaintext highlighter-rouge">"encryption_key"</code> from the backup site matches. Otherwise, stored passwords and tokens may not decrypt properly.</p>
+
+<hr />
+
+<h2 id="-3-testing-the-restored-site">🔹 3. Testing the Restored Site</h2>
+
+<ul>
+  <li>
+    <p>Start your bench:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench start
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Clear caches:</p>
+
+    <div class="language-bash highlighter-rouge"><div class="highlight"><pre class="highlight"><code>bench <span class="nt">--site</span> newsite.local clear-cache
+bench <span class="nt">--site</span> newsite.local clear-website-cache
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>Log in to confirm the site is working.</p>
+  </li>
+</ul>
+
+<hr />
+
+<h2 id="-4-tips--best-practices">🔹 4. Tips &amp; Best Practices</h2>
+
+<ul>
+  <li>
+    <p>Always back up <strong>before running</strong> <code class="language-plaintext highlighter-rouge">bench update</code> or migrations.</p>
+  </li>
+  <li>
+    <p>Store backups offsite (e.g., S3, GDrive, or self-hosted storage).</p>
+  </li>
+  <li>
+    <p>Match <strong>Frappe/ERPNext versions</strong> between backup and restore environment. Restoring a v13 backup into a v16 bench will cause schema issues.</p>
+  </li>
+  <li>
+    <p>If apps have been split out (like Blogs, Newsletter, or Offsite Backups in v16), install them separately via <code class="language-plaintext highlighter-rouge">bench get-app</code>.</p>
+  </li>
+</ul>
+
+<hr />
