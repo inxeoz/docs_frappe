@@ -218,6 +218,33 @@
     background: var(--accent-04);
 }
 
+/* images inside content */
+.content img {
+    display: block;
+    max-width: 100%; /* never overflow container */
+    height: auto; /* keep aspect ratio */
+    margin: 1.5rem auto; /* center with spacing */
+    border-radius: 8px; /* optional rounded edges */
+    border: 1px solid var(--border, #ddd); /* optional border */
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08); /* optional shadow */
+}
+
+/* overlay */
+#lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+}
+#lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    cursor: zoom-out;
+}
+
 /* Responsive tweaks */
 @media (max-width: 1100px) {
     .content {
