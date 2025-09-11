@@ -1,233 +1,46 @@
 <!doctype html>
 <html lang="en">
-    <head>
-        <meta charset="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
-        <title>Documentation</title>
-        <link
-            rel="stylesheet"
-            href="/assets/css/common.css"
-        />
-        <link
-            rel="stylesheet"
-            href="/assets/css/sidebar.css"
-        />
-        <link
-            rel="stylesheet"
-            href="/assets/css/content.css"
-        />
-        <link
-            rel="stylesheet"
-            href="/assets/css/copy.css"
-        />
-        <link
-            rel="stylesheet"
-            href="/assets/css/nav-button.css"
-        />
-    </head>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Documentation</title>
 
-    <body>
+    <!-- Consider concatenating these CSS files at build time to reduce requests -->
+    <link rel="stylesheet" href="/assets/css/common.css" />
+    <link rel="stylesheet" href="/assets/css/sidebar.css" />
+    <link rel="stylesheet" href="/assets/css/content.css" />
+    <link rel="stylesheet" href="/assets/css/copy.css" />
+    <link rel="stylesheet" href="/assets/css/nav-button.css" />
+</head>
 
-    <script>
-        /* Client-side prev/next injector (use when server-side matching is unreliable)
-           Place this near the bottom of your layout (before </body>).
-           It uses the nav arrays output by Liquid (same arrays used by your debug script).
-        */
+<body>
+<!-- Mobile header -->
+<header class="mobile-header">
+    <button id="mobile-sidebar-toggle"
+            class="mobile-hamburger"
+            aria-expanded="false"
+            aria-controls="site-sidebar"
+            aria-label="Toggle navigation menu">
+        <!-- svg omitted for brevity; keep as-is -->
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M3 12h18m-9-9h9m-9 18h9" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+    </button>
 
-        /* -------------------- normalization helper -------------------- */
-        function normPath(p) {
-            if (p === null || p === undefined) return "";
-            p = String(p);
-            try {
-                const u = new URL(p, window.location.origin);
-                p = u.pathname + (u.search || "") + (u.hash || "");
-            } catch (e) {}
-            if (!p.startsWith("/")) p = "/" + p;
-            // separate hash and query, ensure pathname ends with slash
-            let hash = "";
-            let query = "";
-            const hashIdx = p.indexOf("#");
-            if (hashIdx !== -1) { hash = p.slice(hashIdx); p = p.slice(0, hashIdx); }
-            const qIdx = p.indexOf("?");
-            if (qIdx !== -1) { query = p.slice(qIdx); p = p.slice(0, qIdx); }
-            if (!p.endsWith("/")) p = p + "/";
-            return p + query + hash;
-        }
+    <div class="mobile-title">Documentation</div>
 
-        /* -------------------- Liquid-injected nav arrays --------------------
-           These must match the arrays used in your debug script.
-           They get replaced at build time by Jekyll/Liquid.
-        ------------------------------------------------------------------*/
-        const navUrlsRaw = ["/docs/01-installation/","/docs/development/create-custom-app","/docs/development/installing-apps","/docs/development/create-new-site","/docs/development/set-config","/docs/05-bench-console/","/docs/05.1-bench-console/","/docs/05.2-bench-console/","/docs/06-backup/","/docs/07-restore/","/docs/08-nginx/","/docs/10-kill-frappe-process/","/docs/11-doctype/","/docs/11.1-doctype-fields/","/docs/11.2-doctype-naming/",].filter(Boolean);
+    <button id="mobile-theme-toggle"
+            class="mobile-theme-toggle"
+            aria-label="Toggle dark/light theme"
+            onclick="ToggleTheme()">
+        <!-- theme icons -->
+        <svg class="theme-icon theme-icon-light" width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="12" cy="12" r="5" stroke="currentColor" stroke-width="2"/></svg>
+        <svg class="theme-icon theme-icon-dark" width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="2"/></svg>
+    </button>
+</header>
 
-        const navTitles = ["Installation","Creating a Custom Frappe App","Installing Apps","Creating a New Site","Use set-config to enable developer_mode","Using Bench Console","Bench Console Usages","Bench Console Usages (Access &amp; Security Mgmt)","Backing Up Data","Restoring Database","Nginx Reverse Proxy Setup","Kill Frappe process","DocType Default Paramters","DocType Fields","DocType Naming Rule",];
-
-        /* normalize nav urls */
-        const navUrls = navUrlsRaw.map(normPath);
-
-        /* compute the indexes like the debug script */
-        const browserPath = normPath(window.location.pathname + window.location.search + window.location.hash);
-        const liquidPageUrl = normPath("/docs/");
-
-        function getPrevNextForIndex(idx, urls, titles) {
-            if (idx === -1 || idx === null || idx === undefined) return { prev: null, next: null, idx: -1 };
-            const prev = idx > 0 ? { title: titles[idx - 1], url: urls[idx - 1] } : null;
-            const next = idx < urls.length - 1 ? { title: titles[idx + 1], url: urls[idx + 1] } : null;
-            return { prev, next, idx };
-        }
-
-        const idxByLiquid = navUrls.indexOf(liquidPageUrl);
-        const idxByBrowser = navUrls.indexOf(browserPath);
-        const primaryIdx = idxByLiquid !== -1 ? idxByLiquid : (idxByBrowser !== -1 ? idxByBrowser : -1);
-        const pnPrimary = getPrevNextForIndex(primaryIdx, navUrls, navTitles);
-
-        /* -------------------- build prev/next DOM -------------------- */
-        function buildNavHtml(prevObj, nextObj) {
-            // accessible, simple markup — adapt classnames to match your CSS
-            const left = prevObj ? `<a class="btn-prev" href="${prevObj.url}" aria-label="Previous page: ${escapeHtml(prevObj.title)}">← ${escapeHtml(prevObj.title)}</a>` : "";
-            const right = nextObj ? `<a class="btn-next" href="${nextObj.url}" aria-label="Next page: ${escapeHtml(nextObj.title)}">${escapeHtml(nextObj.title)} →</a>` : "";
-            return `<div class="docs-nav" style="display:flex;justify-content:space-between;gap:1rem;margin-top:1.75rem">${left}<div style="flex:1"></div>${right}</div>`;
-        }
-
-        function escapeHtml(s) {
-            return String(s).replace(/[&<>"']/g, function(m) {
-                return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];
-            });
-        }
-
-        /* -------------------- apply the fix -------------------- */
-        (function applyPrevNextFix() {
-            if (pnPrimary.idx === -1) {
-                // nothing to fix (page not found in nav)
-                return;
-            }
-
-            // Locate an existing docs-nav. If none, insert after article.
-            let container = document.querySelector(".docs-nav");
-            if (!container) {
-                // create container in the DOM near the content
-                container = document.createElement("div");
-                // find insertion point: after .doc-article or main > article
-                const article = document.querySelector(".doc-article") || document.querySelector("main");
-                if (article && article.parentNode) {
-                    article.insertAdjacentElement("afterend", container);
-                } else {
-                    document.body.appendChild(container);
-                }
-            }
-
-            // If container already has properly matching links, don't replace.
-            // We'll check first link href/title vs expected prev/next
-            const existingPrev = container.querySelector(".btn-prev");
-            const existingNext = container.querySelector(".btn-next");
-
-            const wantPrev = pnPrimary.prev;
-            const wantNext = pnPrimary.next;
-
-            function matches(element, want) {
-                if (!element && !want) return true;
-                if (!element || !want) return false;
-                // compare normalized href and text (href normalized)
-                const a = normPath(element.getAttribute("href") || element.href || "");
-                return a === normPath(want.url);
-            }
-
-            if (matches(existingPrev, wantPrev) && matches(existingNext, wantNext)) {
-                // already correct — nothing to do
-                return;
-            }
-
-            // Otherwise replace with correct HTML
-            const wrapper = document.createElement("div");
-            wrapper.innerHTML = buildNavHtml(wantPrev, wantNext);
-            // replace container (or set innerHTML)
-            if (container.parentNode) {
-                container.parentNode.replaceChild(wrapper.firstElementChild, container);
-            } else {
-                // fallback
-                container.innerHTML = buildNavHtml(wantPrev, wantNext);
-            }
-        })();
-    </script>
-
-
-    <!-- Mobile header - only visible on small screens -->
-        <header class="mobile-header">
-            <button
-                id="mobile-sidebar-toggle"
-                class="mobile-hamburger"
-                aria-expanded="false"
-                aria-controls="site-sidebar"
-                aria-label="Toggle navigation menu"
-            >
-                <svg
-                    width="24"
-                    height="24"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M3 12h18m-9-9h9m-9 18h9"
-                        stroke="currentColor"
-                        stroke-width="2"
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                    />
-                </svg>
-            </button>
-
-            <div class="mobile-title">
-                Documentation
-            </div>
-
-            <button
-                id="mobile-theme-toggle"
-                class="mobile-theme-toggle"
-                aria-label="Toggle dark/light theme"
-                onclick="ToggleTheme()"
-            >
-                <svg
-                    class="theme-icon theme-icon-light"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <circle
-                        cx="12"
-                        cy="12"
-                        r="5"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    />
-                    <path
-                        d="M12 1v2m0 18v2M4.22 4.22l1.42 1.42m12.72 12.72l1.42 1.42M1 12h2m18 0h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    />
-                </svg>
-                <svg
-                    class="theme-icon theme-icon-dark"
-                    width="20"
-                    height="20"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    xmlns="http://www.w3.org/2000/svg"
-                >
-                    <path
-                        d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"
-                        stroke="currentColor"
-                        stroke-width="2"
-                    />
-                </svg>
-            </button>
-        </header>
-
-
-        <div class="page-wrap">
-            <!-- _includes/sidebar.html -->
+<div class="page-wrap">
+    <!-- _includes/sidebar.html -->
 <nav id="site-sidebar" class="sidebar" aria-label="Sidebar navigation">
   <div class="sidebar-inner">
     <!-- Mobile close button - visible only when sidebar is open -->
@@ -412,11 +225,10 @@
   </div>
 </nav>
 
-            <main class="content">
-                <article class="doc-article">
-                    <h1>Documentation</h1>
-
-                    <h1 id="frappe-bench--documentation">Frappe Bench — Documentation</h1>
+    <main class="content">
+        <article class="doc-article">
+            <h1>Documentation</h1>
+            <h1 id="frappe-bench--documentation">Frappe Bench — Documentation</h1>
 
 <p>Welcome! Explore the complete guide step by step:</p>
 
@@ -448,183 +260,131 @@
   <li><a href="/docs/08-nginx/">Nginx Reverse Proxy Setup</a></li>
 </ul>
 
-                </article>
+        </article>
 
-                
+        
+    </main>
+</div>
 
+<!-- Critical/interactive JS (defer to avoid render-block) -->
+<script src="/assets/js/copy-code.js" defer></script>
+<script src="/assets/js/sidebar.js" defer></script>
+<script src="/assets/js/content-toc.js" defer></script>
+<script src="/assets/js/modern-features.js" defer></script>
+<script src="/assets/js/theme.js" defer></script>
+<script src="/assets/js/img-overlay.js" defer></script>
 
-            </main>
-        </div>
-        <script src="/assets/js/copy-code.js"></script>
-        <script src="/assets/js/sidebar.js"></script>
-        <script src="/assets/js/content-toc.js"></script>
-        <script src="/assets/js/modern-features.js"></script>
-        <script src="/assets/js/theme.js" defer></script>
-        <script
-            src="/assets/js/img-overlay.js"
-            defer
-        ></script>
+<!-- Consolidated prev/next injector & debug (lightweight, single block) -->
+<script defer>
+    (function () {
+        'use strict';
 
+        /* Helper: safe HTML escape */
+        function escapeHtml(str) {
+            return String(str).replace(/[&<>"']/g, function (m) {
+                return ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'})[m];
+            });
+        }
 
-
-
-
-
-        <script>
-            /* DEBUG: show current path and compare to nav entries from _data/navigation.yml
-               — Logs prev/next info for both Liquid's page.url and the browser path.
-               Remove this after debugging.
-            */
-
-            function normPath(p) {
-                if (p === null || p === undefined) return "";
-                p = String(p);
-                try {
-                    // Normalize against origin if it's a full URL or relative path
-                    const u = new URL(p, window.location.origin);
-                    p = u.pathname + (u.search || "") + (u.hash || "");
-                } catch (e) {
-                    // keep original if URL() failed
-                }
-                if (!p.startsWith("/")) p = "/" + p;
-                // Preserve query/hash, but make pathname end with slash for stable comparisons
-                let query = "";
-                let hash = "";
-                // separate hash first
-                const hashIdx = p.indexOf("#");
-                if (hashIdx !== -1) { hash = p.slice(hashIdx); p = p.slice(0, hashIdx); }
-                const qIdx = p.indexOf("?");
-                if (qIdx !== -1) { query = p.slice(qIdx); p = p.slice(0, qIdx); }
-                if (!p.endsWith("/")) p = p + "/";
-                return p + query + hash;
+        /* Normalize path — returns pathname + query + hash, ensures trailing slash on pathname */
+        function normPath(p) {
+            if (p === null || p === undefined) return '';
+            p = String(p);
+            try {
+                const u = new URL(p, window.location.origin);
+                p = u.pathname + (u.search || '') + (u.hash || '');
+            } catch (e) {
+                // keep p unchanged if URL fails
             }
+            if (!p.startsWith('/')) p = '/' + p;
+            let hash = '';
+            let query = '';
+            const hashIdx = p.indexOf('#');
+            if (hashIdx !== -1) { hash = p.slice(hashIdx); p = p.slice(0, hashIdx); }
+            const qIdx = p.indexOf('?');
+            if (qIdx !== -1) { query = p.slice(qIdx); p = p.slice(0, qIdx); }
+            if (!p.endsWith('/')) p = p + '/';
+            return p + query + hash;
+        }
 
-            /* Browser-facing path */
-            const browserPathRaw = window.location.pathname + window.location.search + window.location.hash;
-            const browserPath = normPath(browserPathRaw);
+        /* Build nav HTML */
+        function buildNavHtml(prevObj, nextObj) {
+            const left = prevObj ? `<a class="btn-prev" href="${prevObj.url}" aria-label="Previous page: ${escapeHtml(prevObj.title)}">← ${escapeHtml(prevObj.title)}</a>` : '';
+            const right = nextObj ? `<a class="btn-next" href="${nextObj.url}" aria-label="Next page: ${escapeHtml(nextObj.title)}">${escapeHtml(nextObj.title)} →</a>` : '';
+            return `<div class="docs-nav" aria-label="Documentation navigation" style="display:flex;justify-content:space-between;gap:1rem;margin-top:1.75rem">${left}<div style="flex:1"></div>${right}</div>`;
+        }
 
-            /* Liquid-injected page.url */
-            const liquidPageUrlRaw = "/docs/";
-            const liquidPageUrl = normPath(liquidPageUrlRaw);
+        /* Get prev/next details by index */
+        function getPrevNextForIndex(idx, urls, titles) {
+            if (idx === -1 || idx === null || idx === undefined) return { prev: null, next: null, idx: -1 };
+            const prev = idx > 0 ? { title: titles[idx - 1], url: urls[idx - 1] } : null;
+            const next = idx < urls.length - 1 ? { title: titles[idx + 1], url: urls[idx + 1] } : null;
+            return { prev, next, idx };
+        }
 
-            /* Build JS arrays of nav urls & titles in the same order as Liquid produced them */
-            const navUrlsRaw = ["/docs/01-installation/","/docs/development/create-custom-app","/docs/development/installing-apps","/docs/development/create-new-site","/docs/development/set-config","/docs/05-bench-console/","/docs/05.1-bench-console/","/docs/05.2-bench-console/","/docs/06-backup/","/docs/07-restore/","/docs/08-nginx/","/docs/10-kill-frappe-process/","/docs/11-doctype/","/docs/11.1-doctype-fields/","/docs/11.2-doctype-naming/",].filter(Boolean);
+        /* ========== Liquid-injected arrays ========== */
+        /* These are generated at build-time by Jekyll/Liquid and must match your nav data. */
+        const navUrlsRaw = ["/docs/01-installation/","/docs/development/create-custom-app","/docs/development/installing-apps","/docs/development/create-new-site","/docs/development/set-config","/docs/05-bench-console/","/docs/05.1-bench-console/","/docs/05.2-bench-console/","/docs/06-backup/","/docs/07-restore/","/docs/08-nginx/","/docs/10-kill-frappe-process/","/docs/11-doctype/","/docs/11.1-doctype-fields/","/docs/11.2-doctype-naming/",].filter(Boolean);
 
-            const navTitles = ["Installation","Creating a Custom Frappe App","Installing Apps","Creating a New Site","Use set-config to enable developer_mode","Using Bench Console","Bench Console Usages","Bench Console Usages (Access &amp; Security Mgmt)","Backing Up Data","Restoring Database","Nginx Reverse Proxy Setup","Kill Frappe process","DocType Default Paramters","DocType Fields","DocType Naming Rule",];
+        const navTitles = ["Installation","Creating a Custom Frappe App","Installing Apps","Creating a New Site","Use set-config to enable developer_mode","Using Bench Console","Bench Console Usages","Bench Console Usages (Access &amp; Security Mgmt)","Backing Up Data","Restoring Database","Nginx Reverse Proxy Setup","Kill Frappe process","DocType Default Paramters","DocType Fields","DocType Naming Rule",];
 
-            /* normalize nav urls */
-            const navUrls = navUrlsRaw.map(normPath);
+        /* Normalize nav urls once (fast) */
+        const navUrls = navUrlsRaw.map(normPath);
 
-            /* helper to get prev/next details by index */
-            function getPrevNextForIndex(idx, urls, titles) {
-                if (idx === -1 || idx === null || idx === undefined) return { prev: null, next: null, idx: -1 };
-                const prev = idx > 0 ? { title: titles[idx - 1], url: urls[idx - 1] } : null;
-                const next = idx < urls.length - 1 ? { title: titles[idx + 1], url: urls[idx + 1] } : null;
-                return { prev, next, idx };
+        /* Determine current paths (browser + liquid page.url) */
+        const browserPath = normPath(window.location.pathname + window.location.search + window.location.hash);
+        const liquidPageUrl = normPath("/docs/");
+
+        /* Prefer a liquid match, fallback to browser match */
+        const idxByLiquid = navUrls.indexOf(liquidPageUrl);
+        const idxByBrowser = navUrls.indexOf(browserPath);
+        const primaryIdx = idxByLiquid !== -1 ? idxByLiquid : (idxByBrowser !== -1 ? idxByBrowser : -1);
+        const pnPrimary = getPrevNextForIndex(primaryIdx, navUrls, navTitles);
+
+        /* If page is not in nav, do nothing */
+        if (pnPrimary.idx === -1) return;
+
+        /* Find or create container for prev/next */
+        let container = document.querySelector('.docs-nav');
+        if (!container) {
+            const article = document.querySelector('.doc-article') || document.querySelector('main');
+            container = document.createElement('div');
+            // keep same class so future checks find it
+            container.className = 'docs-nav';
+            if (article && article.parentNode) {
+                article.insertAdjacentElement('afterend', container);
+            } else {
+                document.body.appendChild(container);
             }
+        }
 
-            /* find indexes */
-            const idxByBrowser = navUrls.indexOf(browserPath);
-            const idxByLiquid = navUrls.indexOf(liquidPageUrl);
+        /* Check whether existing links already match expected (avoid replacing DOM unnecessarily) */
+        const existingPrev = container.querySelector('.btn-prev');
+        const existingNext = container.querySelector('.btn-next');
 
-            /* choose a primary index (prefer liquid match, fallback to browser match) */
-            const primaryIdx = idxByLiquid !== -1 ? idxByLiquid : (idxByBrowser !== -1 ? idxByBrowser : -1);
+        function hrefMatches(el, want) {
+            if (!el && !want) return true;
+            if (!el || !want) return false;
+            const a = normPath(el.getAttribute('href') || el.href || '');
+            return a === normPath(want.url);
+        }
 
-            /* Prev/Next by each method */
-            const pnByLiquid = getPrevNextForIndex(idxByLiquid, navUrls, navTitles);
-            const pnByBrowser = getPrevNextForIndex(idxByBrowser, navUrls, navTitles);
-            const pnPrimary = getPrevNextForIndex(primaryIdx, navUrls, navTitles);
+        if (hrefMatches(existingPrev, pnPrimary.prev) && hrefMatches(existingNext, pnPrimary.next)) {
+            // already correct
+            return;
+        }
 
-            /* Console output */
-            console.group("%cDocs Nav Debug (Prev/Next)", "color: #0b5; font-weight: bold");
-            console.log("Browser path (normalized):", browserPath, "(raw:", browserPathRaw + ")");
-            console.log("Liquid page.url (normalized):", liquidPageUrl, "(raw:", liquidPageUrlRaw + ")");
-            console.log("Nav URLs (normalized, in order):", navUrls);
-            console.log("Nav Titles (in order):", navTitles);
-            console.log("Index by Liquid:", idxByLiquid);
-            console.log("Index by Browser:", idxByBrowser);
-            console.log("--- Results for Liquid match ---");
-            console.log("prev:", pnByLiquid.prev);
-            console.log("next:", pnByLiquid.next);
-            console.log("--- Results for Browser match ---");
-            console.log("prev:", pnByBrowser.prev);
-            console.log("next:", pnByBrowser.next);
-            console.log("--- Primary (used for UI fallback) ---");
-            console.log("primary idx:", pnPrimary.idx);
-            console.log("primary prev:", pnPrimary.prev);
-            console.log("primary next:", pnPrimary.next);
-            console.groupEnd();
+        // Replace with canonical markup
+        const wrapper = document.createElement('div');
+        wrapper.innerHTML = buildNavHtml(pnPrimary.prev, pnPrimary.next);
 
-            /* On-page debug box (quick glance) */
-            (function showOnPage() {
-                const el = document.createElement("div");
-                el.id = "docs-debug-box";
-                el.style.cssText =
-                    "position:fixed;right:12px;bottom:12px;background:rgba(0,0,0,0.78);color:#fff;padding:10px;border-radius:8px;font-family:monospace;font-size:12px;z-index:99999;max-width:360px;line-height:1.3;";
-                function fmtLink(o) {
-                    return o ? `<div style="margin-top:4px"><strong>${o.title}</strong><br><a style="color:#9be7ff;word-break:break-all" href='${o.url}'>${o.url}</a></div>` : "<div style='opacity:0.6'>— none —</div>";
-                }
-                el.innerHTML = `
-    <div style="font-weight:bold;margin-bottom:6px">Docs Debug — prev/next</div>
-    <div style="font-size:11px;opacity:0.9">browser: <span style="color:#9be7ff">${browserPath}</span></div>
-    <div style="font-size:11px;opacity:0.9">liquid: <span style="color:#ffd18f">${liquidPageUrl}</span></div>
-    <div style="margin-top:8px"><em style='font-size:11px'>By Liquid match</em>${fmtLink(pnByLiquid.prev)}${fmtLink(pnByLiquid.next)}</div>
-    <div style="margin-top:6px"><em style='font-size:11px'>By Browser match</em>${fmtLink(pnByBrowser.prev)}${fmtLink(pnByBrowser.next)}</div>
-    <div style="margin-top:6px"><em style='font-size:11px'>Primary (fallback)</em>${fmtLink(pnPrimary.prev)}${fmtLink(pnPrimary.next)}</div>
-    <div style="margin-top:8px;opacity:0.85;font-size:11px">Remove this debug box when done.</div>
-  `;
-                document.body.appendChild(el);
-            })();
+        if (container.parentNode) {
+            container.parentNode.replaceChild(wrapper.firstElementChild, container);
+        } else {
+            container.innerHTML = wrapper.innerHTML;
+        }
 
-            /* OPTIONAL: client-side fallback to inject prev/next into the DOM if Liquid failed to find page.
-               Uncomment the block below if you want client-side injection when primaryIdx is valid but
-               your server-side include didn't render prev/next.
-            */
-            /*
-            if (pnPrimary.idx !== -1) {
-              const navContainerSelector = ".docs-nav"; // update if your docs nav container differs
-              let container = document.querySelector(navContainerSelector);
-              if (!container) {
-                // create container at bottom of article
-                container = document.createElement("div");
-                container.className = "docs-nav";
-                const article = document.querySelector(".doc-article") || document.querySelector("main");
-                if (article) article.insertAdjacentElement("afterend", container);
-              }
-              // only inject if there are no prev/next links already
-              if (container && container.children.length === 0) {
-                if (pnPrimary.prev) {
-                  const a = document.createElement("a");
-                  a.className = "btn-prev";
-                  a.href = pnPrimary.prev.url;
-                  a.textContent = "← Prev: " + pnPrimary.prev.title;
-                  a.setAttribute("aria-label", "Previous page: " + pnPrimary.prev.title);
-                  container.appendChild(a);
-                }
-                if (pnPrimary.next) {
-                  const b = document.createElement("a");
-                  b.className = "btn-next";
-                  b.href = pnPrimary.next.url;
-                  b.textContent = "Next: " + pnPrimary.next.title + " →";
-                  b.setAttribute("aria-label", "Next page: " + pnPrimary.next.title);
-                  container.appendChild(b);
-                }
-              }
-            }
-            */
-        </script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-    </body>
+    })();
+</script>
+</body>
 </html>
