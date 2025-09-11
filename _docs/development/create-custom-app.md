@@ -4,9 +4,6 @@ layout: default
 order: 2
 ---
 
-
-##  Create new frappe App
-
 ```bash
 bench new-app mapp
 ```

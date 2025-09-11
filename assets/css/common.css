@@ -144,24 +144,45 @@ body {
     background-clip: text;
 }
 
-@keyframes fadeIn {
-    from {
-        opacity: 0;
-    }
-    to {
-        opacity: 1;
-    }
-}
-@keyframes slideUp {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+/* Theme icon states (consolidated) */
+.theme-icon-dark,
+.mobile-theme-toggle .theme-icon-dark {
+    display: none;
 }
 
-/* Reduced motion, accessibility, responsive breakpoints, and other content.css/sidebar.css
-   can be kept as-is but merged into this file for fewer requests. */
+[data-theme="dark"] .theme-icon-light,
+.dark-theme .theme-icon-light,
+body.dark .theme-icon-light,
+[data-theme="dark"] .mobile-theme-toggle .theme-icon-light,
+.dark-theme .mobile-theme-toggle .theme-icon-light,
+body.dark .mobile-theme-toggle .theme-icon-light {
+    display: none;
+}
+
+[data-theme="dark"] .theme-icon-dark,
+.dark-theme .theme-icon-dark,
+body.dark .theme-icon-dark,
+[data-theme="dark"] .mobile-theme-toggle .theme-icon-dark,
+.dark-theme .mobile-theme-toggle .theme-icon-dark,
+body.dark .mobile-theme-toggle .theme-icon-dark {
+    display: block;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    10%, 30%, 50%, 70%, 90% { transform: translateX(-2px); }
+    20%, 40%, 60%, 80% { transform: translateX(2px); }
+}
+@keyframes slideDown {
+    from { max-height: 0; opacity: 0; transform: translateY(-10px); }
+    to { max-height: 200px; opacity: 1; transform: translateY(0); }
+}
+

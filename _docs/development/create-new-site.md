@@ -5,8 +5,6 @@ order: 4
 ---
 
 
-## Create New Site
-
 this will ask for 
 MariaDB root password (password which You set during sudo mysql_secure_installation )
 Administrator password to set (which will be used for frappe desktop login)
